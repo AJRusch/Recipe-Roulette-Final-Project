@@ -1,0 +1,27 @@
+.search__section {
+  margin: auto;
+  position: relative;
+}
+
+.search__img {
+  width: 100%;
+  opacity: 0.4;
+}
+
+.search__background_image {
+  position: absolute;
+  width: 100%;
+  opacity: 0.6;
+}
+
+.search-recipe__btn {
+  position: absolute;
+  z-index: 1;
+  left: 400px;
+  bottom: 635px;
+  width: 600px;
+  height: 40px;
+  margin: auto;
+  border-radius: 20px;
+  padding: 0;
+}

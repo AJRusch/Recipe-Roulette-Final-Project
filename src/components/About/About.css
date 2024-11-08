@@ -1,0 +1,41 @@
+.about {
+  display: flex;
+  flex-direction: column;
+  margin: 15px auto auto;
+  background-size: cover;
+  opacity: 0.6;
+  border: 1px solid white;
+  background-color: white;
+}
+
+.about__title {
+  display: flex;
+  border: none;
+  align-items: center;
+  margin: 75px auto;
+  color: black;
+  font-size: 40px;
+  font-weight: 700;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.about__author-box {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.about__author-story {
+  margin: 30px 0;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 25px;
+  line-height: 20px;
+  font-weight: 600;
+}
+
+.about__author {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 25px;
+  line-height: 20px;
+  font-weight: 600;
+}
