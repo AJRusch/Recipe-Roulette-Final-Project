@@ -1,0 +1,50 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px 0 28px;
+  max-width: 1360px;
+  max-height: 35px;
+
+  background-image: url("../../assets/tile-header-pattern.png");
+  border-top: solid 1px gray;
+  border-left: solid 1px gray;
+  border-right: solid 1px gray;
+}
+
+.header-general-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.header__logo {
+  margin: 0 24px 0 10px;
+  max-height: 50px;
+  max-width: 50px;
+  border-radius: 50px;
+}
+
+.header__date-time {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  color: black;
+}
+
+.header__title {
+  display: flex;
+  flex-direction: row;
+  color: black;
+  margin: 0;
+  padding-right: 10px;
+}
+
+.header__subtitle {
+  font-weight: 700;
+  line-height: 24px;
+  font-size: 20px;
+  margin: 0;
+}

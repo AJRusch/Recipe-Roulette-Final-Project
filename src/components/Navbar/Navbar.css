@@ -1,0 +1,80 @@
+.navbar__section {
+  display: flex;
+}
+
+.navbar__menu {
+  display: flex;
+  flex-direction: row;
+  margin: 0 0 0 auto;
+  gap: 15px;
+}
+
+.navbar__login {
+  color: black;
+  opacity: 0.6;
+  font-weight: 700px;
+  margin: 0;
+}
+
+.navbar__register {
+  color: black;
+  opacity: 0.6;
+  margin: 0;
+}
+.navbar__about {
+  margin: 0 10px 0 0;
+  color: black;
+  opacity: 0.6;
+  border-bottom: none;
+  text-decoration: none;
+}
+
+.navbar__about-recipes {
+  color: black;
+  opacity: 0.6;
+  margin: 0;
+  position: relative;
+}
+
+.navbar__about-recipes:before {
+  content: attr(data-text);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 15px;
+  width: 100px;
+  border-radius: 10px;
+  background: #000;
+  color: #fff;
+  display: none;
+}
+
+.navbar__about-recipes:before:hover {
+  display: block;
+  z-index: 1000;
+}
+
+.navbar__login:hover {
+  border-bottom: 2px solid;
+  cursor: pointer;
+  opacity: 1;
+}
+
+.navbar__register:hover {
+  border-bottom: 2px solid;
+  cursor: pointer;
+  opacity: 1;
+}
+
+.navbar__about-recipes:hover {
+  border-bottom: 2px solid;
+  cursor: pointer;
+  opacity: 1;
+  visibility: visible;
+}
+
+.navbar__about:hover {
+  border-bottom: 2px solid;
+  cursor: pointer;
+  opacity: 1;
+}
