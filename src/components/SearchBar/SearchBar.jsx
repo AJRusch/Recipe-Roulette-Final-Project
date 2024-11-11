@@ -3,14 +3,16 @@ import { useNavigate } from "react-router-dom";
 import "./SearchBar.css";
 import { FaSearch } from "react-icons/fa";
 import * as api from "../../utils/api";
-import RecipeCard from "../RecipeCard/RecipeCard";
+import Preloader from "../Preloader/Preloader";
 
 function SearchBar() {
   const [searchInput, setSearchInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const { results } = await api.searchRecipes(searchInput, 1);
       console.log(results);
@@ -22,6 +24,14 @@ function SearchBar() {
 
   return (
     <section className="searchbar">
+      <div
+        className={
+          isLoading ? "searchbar__preloader" : "searchbar__preloader_hidden"
+        }
+      >
+        <Preloader />
+        <h3 className="searchbar__preloader-text">Searching for Recipes</h3>
+      </div>
       <div className="searchbar__wrapper">
         <form onSubmit={handleSubmit} className="searchbar__form">
           <input

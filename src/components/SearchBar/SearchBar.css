@@ -45,3 +45,26 @@ input:focus {
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   margin: 30px 40px;
 }
+
+.searchbar__preloader {
+  max-width: 310px;
+  align-items: center;
+  margin: 0 auto;
+  height: 50px;
+  border: 1px solid white;
+  border-width: 10px;
+  border-radius: 20px;
+  background-color: white;
+}
+
+.searchbar__preloader_hidden {
+  display: none;
+}
+
+.searchbar__preloader-text {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: center;
+  margin: 0;
+}

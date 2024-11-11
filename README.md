@@ -10,7 +10,12 @@ Currently, two official plugins are available:
 # Recipe-Roulette-Final-Project
 
 This is the first stage of my final project. I am building a recipe app that allows users to search, save/favorite recipes and skim what recipes are popular from week to week. I do apologize I completely skimmed the directions for the final project and did not notice that we were supposed to submit after we had the basic jsx markup down. So I have already connected parts of my api (search endpoint and the popular section), just to make sure they were functioning. I am still implementing the login/out, register, and favoriting functions yet.
+The search endpoint and the getsummary endpoint are both housed on the backend to keep things more secure.
 
 # Link to deployed server
 
 https://ajrusch.github.io/Recipe-Roulette-Final-Project/
+
+# Link to Backend server
+
+https://github.com/AJRusch/recipe-roulette-backend

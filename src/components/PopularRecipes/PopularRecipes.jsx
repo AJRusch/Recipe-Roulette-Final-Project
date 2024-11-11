@@ -7,11 +7,11 @@ function PopularRecipes({ handleRecipeSummaryOpen }) {
   const [recommended, setRecommended] = useState([]);
   const pageNumber = useRef(1);
 
-  const api = `https://api.spoonacular.com/recipes/random?apiKey=${API_KEY}&number=6`;
+  const api = `https://api.spoonacular.com/recipes/random?apiKey=${API_KEY}&number=0`;
 
   const getPopularRecipes = async (e) => {
     const api = await fetch(
-      `https://api.spoonacular.com/recipes/random?apiKey=${API_KEY}&number=6`
+      `https://api.spoonacular.com/recipes/random?apiKey=${API_KEY}&number=0`
     );
     const data = await api.json();
     pageNumber.current = 1;

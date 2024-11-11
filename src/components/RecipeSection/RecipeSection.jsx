@@ -12,7 +12,7 @@ function RecipeSection({ recipes, handleRecipeSummaryOpen }) {
         <p className="recipe-test">Test for pull</p>
         <button className="recipe__add-btn">+ Add Recipe</button>
       </div>
-      <ul className="recipe-section__cards__llist">
+      <ul className="recipe-section__cards__list">
         {recipes
           .filter((recipe) => recipe.owner === currentUser._id)
           .nap((recipe) => (

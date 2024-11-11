@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/Recipe-Roulette-Final-Project/",
+  base: "",
   server: {
     port: 3001,
   },

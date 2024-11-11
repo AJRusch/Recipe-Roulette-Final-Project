@@ -1,6 +1,6 @@
 /*   PLEASE READ THE README FILE */
 
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./App.css";
 import Header from "../Header/Header";
@@ -36,6 +36,7 @@ function App() {
   const [selectedRecipe, setSelectedRecipe] = useState(null);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleRegisterUser = () => {
     setActiveModal("register");
@@ -184,6 +185,12 @@ function App() {
       })
       .catch(console.error);
   }, []);
+
+  useEffect(() => {
+    if (location.pathname === "/") {
+      navigate("/");
+    }
+  }, [navigate, location.pathname]);
 
   return (
     <div className="recipe-app">
