@@ -200,7 +200,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    navigate("/homepage");
+    navigate("/");
   }, [navigate]);
 
   /*useEffect(() => {
