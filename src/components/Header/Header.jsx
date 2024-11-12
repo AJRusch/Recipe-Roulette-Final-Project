@@ -4,7 +4,13 @@ import "./Header.css";
 import logo from "../../assets/Recipe Logo.png";
 import Navbar from "../Navbar/Navbar";
 
-function Header({ handleLoginUser, handleRegisterUser }) {
+function Header({
+  handleLoginUser,
+  handleRegisterUser,
+  handleLogout,
+  handleEditProfileUser,
+  isLoggedIn,
+}) {
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
@@ -42,6 +48,9 @@ function Header({ handleLoginUser, handleRegisterUser }) {
       <Navbar
         handleLoginUser={handleLoginUser}
         handleRegisterUser={handleRegisterUser}
+        handleEditProfileUser={handleEditProfileUser}
+        handleLogout={handleLogout}
+        isLoggedIn={isLoggedIn}
       />
     </header>
   );

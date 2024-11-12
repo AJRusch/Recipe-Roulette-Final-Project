@@ -39,7 +39,6 @@
   flex-direction: row;
   color: black;
   margin: 0;
-  padding-right: 10px;
 }
 
 .header__subtitle {
@@ -47,4 +46,30 @@
   line-height: 24px;
   font-size: 20px;
   margin: 0;
+}
+
+@media screen and (max-width: 1024px) {
+  .header__title {
+    font-size: 15px;
+  }
+
+  .header__date-time {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .header__title {
+    font-size: 8px;
+    font-weight: 400;
+    margin: 0 5px;
+  }
+
+  .header__date-time {
+    font-weight: 400;
+  }
+
+  .header__logo {
+    margin: 0 10 0 10px;
+  }
 }

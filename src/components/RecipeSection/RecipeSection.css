@@ -1,0 +1,32 @@
+.recipe__menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.recipe__header {
+  display: flex;
+  align-items: center;
+  border: 1px solid white;
+  border-width: 10px;
+  border-radius: 20px;
+  height: 50px;
+  background-color: white;
+  margin: 0;
+}
+
+.recipe__add-btn {
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  background-color: white;
+  border: none;
+  background: linear-gradient(60deg, rgb(120, 118, 118));
+  height: 50px;
+  cursor: pointer;
+}
+
+.recipe__add-btn:hover {
+  scale: 1.1;
+}

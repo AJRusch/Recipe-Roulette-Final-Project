@@ -9,11 +9,13 @@ import Footer from "../Footer/Footer";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
 import EditProfileModal from "../EditProfileModal/EditProfileModal";
+import AddRecipeModal from "../AddRecipeModal/AddRecipeModal";
 import RecipeModal from "../RecipeModal/RecipeModal";
 import SearchedRecipes from "../SearchedRecipes/SearchedRecipes";
 import Profile from "../Profile/Profile";
 import About from "../About/About";
-import { getToken, setToken, removeToken } from "../../utils/token";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
+import { getToken, setToken } from "../../utils/token";
 import {
   registerUser,
   signInUser,
@@ -46,8 +48,12 @@ function App() {
     setActiveModal("login");
   };
 
-  const handleEditProfileuser = () => {
+  const handleEditProfileUser = () => {
     setActiveModal("edit-profile");
+  };
+
+  const handleAddRecipe = () => {
+    setActiveModal("add-recipe");
   };
 
   const handleRecipeSummaryOpen = (recipe) => {
@@ -128,6 +134,7 @@ function App() {
     const startRequest = () => {
       return createRecipecard(newRecipe, token).then((res) => {
         setRecipes([res.data, ...recipes]);
+        resetCurrentForm();
       });
     };
     handleSubmit(startRequest);
@@ -187,6 +194,12 @@ function App() {
   }, []);
 
   useEffect(() => {
+    getRecipeItems().then((data) => {
+      setRecipes(data);
+    });
+  }, []);
+
+  useEffect(() => {
     if (location.pathname === "/") {
       navigate("/");
     }
@@ -194,68 +207,84 @@ function App() {
 
   return (
     <div className="recipe-app">
-      <div className="recipe-app-content">
-        <Header
-          handleLoginUser={handleLoginUser}
-          handleRegisterUser={handleRegisterUser}
-        />
-        <Routes>
-          <Route
-            path="/"
-            element={<Main handleRecipeSummaryOpen={handleRecipeSummaryOpen} />}
+      <CurrentUserContext.Provider value={currentUser}>
+        <div className="recipe-app-content">
+          <Header
+            handleLoginUser={handleLoginUser}
+            handleRegisterUser={handleRegisterUser}
+            handleEditProfileUser={handleEditProfileUser}
+            handleLogout={handleLogout}
+            isLoggedIn={isLoggedIn}
           />
-          <Route
-            path="/profile"
-            element={
-              <Profile
-                recipes={recipes}
-                handleRecipeSummaryOpen={handleRecipeSummaryOpen}
-              />
-            }
-          />
-          <Route
-            path="/searched"
-            element={
-              <SearchedRecipes
-                handleRecipeSummaryOpen={handleRecipeSummaryOpen}
-              />
-            }
-          />
-          <Route path="/about" element={<About />} />
-        </Routes>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Main
+                  handleRecipeSummaryOpen={handleRecipeSummaryOpen}
+                  addFavorite={handleFavorite}
+                />
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <Profile
+                  handleAddRecipe={handleAddRecipe}
+                  recipes={recipes}
+                  addFavorite={handleFavorite}
+                />
+              }
+            />
+            <Route
+              path="/searched"
+              element={
+                <SearchedRecipes
+                  addFavorite={handleFavorite}
+                  handleRecipeSummaryOpen={handleRecipeSummaryOpen}
+                />
+              }
+            />
+            <Route path="/about" element={<About />} />
+          </Routes>
 
-        <Footer />
-      </div>
-
-      <RegisterModal
-        isOpen={activeModal === "register"}
-        onClose={closeActiveModal}
-        setActiveModal={setActiveModal}
-        closeActiveModal={closeActiveModal}
-      />
-      <LoginModal
-        isOpen={activeModal === "login"}
-        onClose={closeActiveModal}
-        setActiveModal={setActiveModal}
-        closeActiveModal={closeActiveModal}
-        handleRegistration={handleRegistration}
-        handleLogin={handleLogin}
-      />
-      <EditProfileModal
-        onClose={closeActiveModal}
-        isOpen={activeModal === "edit-profile"}
-        setActiveModal={setActiveModal}
-      />
-      {selectedRecipe && (
-        <RecipeModal
-          isOpen={activeModal === "summary"}
-          onClose={() => {
-            setSelectedRecipe(null);
-            closeActiveModal();
-          }}
-          recipeId={selectedRecipe?.id}
+          <Footer />
+        </div>
+        <AddRecipeModal
+          onClose={closeActiveModal}
+          isOpen={activeModal === "add-recipe"}
+          handleAddRecipeSubmit={handleAddRecipeSubmit}
         />
-      )}
+        <RegisterModal
+          isOpen={activeModal === "register"}
+          onClose={closeActiveModal}
+          setActiveModal={setActiveModal}
+          closeActiveModal={closeActiveModal}
+        />
+        <LoginModal
+          isOpen={activeModal === "login"}
+          onClose={closeActiveModal}
+          setActiveModal={setActiveModal}
+          closeActiveModal={closeActiveModal}
+          handleRegistration={handleRegistration}
+          handleLogin={handleLogin}
+        />
+        <EditProfileModal
+          onClose={closeActiveModal}
+          isOpen={activeModal === "edit-profile"}
+          handleEditProfile={handleEditProfile}
+        />
+        {selectedRecipe && (
+          <RecipeModal
+            isOpen={activeModal === "summary"}
+            onClose={() => {
+              setSelectedRecipe(null);
+              closeActiveModal();
+            }}
+            recipeId={selectedRecipe?.id}
+          />
+        )}
+      </CurrentUserContext.Provider>
     </div>
   );
 }

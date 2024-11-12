@@ -3,15 +3,15 @@ import { API_KEY } from "../../utils/constants";
 import RecipeCard from "../RecipeCard/RecipeCard";
 import "./PopularRecipes.css";
 
-function PopularRecipes({ handleRecipeSummaryOpen }) {
+function PopularRecipes({ handleRecipeSummaryOpen, addFavorite }) {
   const [recommended, setRecommended] = useState([]);
   const pageNumber = useRef(1);
 
-  const api = `https://api.spoonacular.com/recipes/random?apiKey=${API_KEY}&number=0`;
+  const api = `https://api.spoonacular.com/recipes/random?apiKey=${API_KEY}&number=6`;
 
   const getPopularRecipes = async (e) => {
     const api = await fetch(
-      `https://api.spoonacular.com/recipes/random?apiKey=${API_KEY}&number=0`
+      `https://api.spoonacular.com/recipes/random?apiKey=${API_KEY}&number=6`
     );
     const data = await api.json();
     pageNumber.current = 1;

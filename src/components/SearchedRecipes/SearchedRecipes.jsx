@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import * as api from "../../utils/api";
 import RecipeCard from "../RecipeCard/RecipeCard";
 
-function SearchedRecipes({ handleRecipeSummaryOpen }) {
+function SearchedRecipes({ handleRecipeSummaryOpen, addFavorite }) {
   const [recipes, setRecipes] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const location = useLocation();

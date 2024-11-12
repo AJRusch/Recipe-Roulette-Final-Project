@@ -1,22 +1,62 @@
 import "./Navbar.css";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 
-function Navbar({ handleLoginUser, handleRegisterUser }) {
+function Navbar({
+  handleLoginUser,
+  handleRegisterUser,
+  handleEditProfileUser,
+  handleLogout,
+  isLoggedIn,
+}) {
+  const currentUser = useContext(CurrentUserContext);
   return (
     <section className="navbar__section">
       <div className="navbar__menu">
-        <p className="navbar__login" onClick={handleLoginUser}>
-          Log in
-        </p>
-        <p className="navbar__register" onClick={handleRegisterUser}>
-          Register
-        </p>
-        <span
-          className="navbar__about-recipes"
-          data-text="Testing the hover tip"
-        >
-          Want to save your own Recipes?
-        </span>
+        {isLoggedIn ? (
+          <div className="navbar__menu">
+            <p className="navbar__user">Hello {currentUser.name}</p>
+            <button
+              onClick={handleLogout}
+              type="button"
+              className="navbar__logout"
+            >
+              Log out
+            </button>
+            <button
+              onClick={handleEditProfileUser}
+              type="button"
+              className="navbar__edit-info"
+            >
+              Update your info
+            </button>
+          </div>
+        ) : (
+          <div className="navbar__menu">
+            <button
+              type="button"
+              className="navbar__login"
+              onClick={handleLoginUser}
+            >
+              Log in
+            </button>
+            <button
+              type="button"
+              className="navbar__register"
+              onClick={handleRegisterUser}
+            >
+              Register
+            </button>
+            <span
+              className="navbar__about-recipes"
+              data-text="Testing the hover tip"
+            >
+              Want to save your own Recipes?
+            </span>
+          </div>
+        )}
+
         <Link to="/about" style={{ textDecoration: "none" }}>
           <p className="navbar__about">About</p>
         </Link>

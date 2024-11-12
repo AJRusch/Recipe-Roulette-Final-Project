@@ -68,3 +68,22 @@ input:focus {
   text-align: center;
   margin: 0;
 }
+
+@media screen and (max-width: 700px) {
+  .searchbar__wrapper {
+    max-width: 400px;
+  }
+
+  .searchbar__form {
+    max-width: 400px;
+  }
+
+  .searchbar__input {
+    max-width: 400px;
+  }
+
+  .searchbar__icon {
+    right: 10px;
+    bottom: 14px;
+  }
+}

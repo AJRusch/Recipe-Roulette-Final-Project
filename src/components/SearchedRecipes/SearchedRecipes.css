@@ -37,11 +37,11 @@
 
 .searchRecipes-view-more {
   border: 1px solid white;
-  display: flex;
-  justify-self: center;
   border-width: 10px;
   border-radius: 20px;
   background-color: white;
+  display: flex;
+  justify-self: center;
   font-weight: 500;
   margin: 0 0 10px;
   cursor: pointer;
