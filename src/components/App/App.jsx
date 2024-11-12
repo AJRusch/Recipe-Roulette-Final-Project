@@ -200,14 +200,10 @@ function App() {
   }, []);
 
   useEffect(() => {
-    navigate("/");
-  }, [navigate]);
-
-  /*useEffect(() => {
     if (location.pathname === "/") {
       navigate("/");
     }
-  }, [navigate, location.pathname]); */
+  }, [navigate, location.pathname]);
 
   return (
     <div className="recipe-app">
