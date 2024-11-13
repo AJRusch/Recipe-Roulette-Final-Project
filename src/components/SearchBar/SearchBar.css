@@ -40,12 +40,6 @@ input:focus {
   cursor: pointer;
 }
 
-.searchbar-results__wrapper {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  margin: 30px 40px;
-}
-
 .searchbar__preloader {
   max-width: 310px;
   align-items: center;

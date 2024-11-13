@@ -12,7 +12,7 @@ function Navbar({
 }) {
   const currentUser = useContext(CurrentUserContext);
   return (
-    <section className="navbar__section">
+    <section className="nav">
       <div className="navbar__menu">
         {isLoggedIn ? (
           <div className="navbar__menu">
@@ -48,12 +48,6 @@ function Navbar({
             >
               Register
             </button>
-            <span
-              className="navbar__about-recipes"
-              data-text="Testing the hover tip"
-            >
-              Want to save your own Recipes?
-            </span>
           </div>
         )}
 

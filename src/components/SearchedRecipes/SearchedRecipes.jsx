@@ -43,15 +43,17 @@ function SearchedRecipes({ handleRecipeSummaryOpen, addFavorite }) {
       <div className="searchedRecipes__info-box">
         <h3 className="searchedRecipes__header">Here is what we found:</h3>
       </div>
-      <div className="searchbar-results__wrapper">
-        {searchResults &&
-          searchResults.map((recipe) => (
-            <RecipeCard
-              key={recipe.id}
-              recipe={recipe}
-              handleRecipeSummaryOpen={handleRecipeSummaryOpen}
-            />
-          ))}
+      <div className="searchedRecipes-results__wrapper">
+        <ul className="searchedRecipes__cards__list">
+          {searchResults &&
+            searchResults.map((recipe) => (
+              <RecipeCard
+                key={recipe.id}
+                recipe={recipe}
+                handleRecipeSummaryOpen={handleRecipeSummaryOpen}
+              />
+            ))}
+        </ul>
       </div>
       <button className="searchRecipes-view-more" onClick={handleViewMore}>
         View More

@@ -42,9 +42,6 @@ function Header({
           {currentDate}, {clockTime}
         </p>
       </div>
-      <div className="header__title">
-        <h1 className="header__subtitle">Roulette Recipe Collection</h1>
-      </div>
       <Navbar
         handleLoginUser={handleLoginUser}
         handleRegisterUser={handleRegisterUser}

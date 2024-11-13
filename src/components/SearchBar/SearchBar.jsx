@@ -25,9 +25,9 @@ function SearchBar() {
   return (
     <section className="searchbar">
       <div
-        className={
-          isLoading ? "searchbar__preloader" : "searchbar__preloader_hidden"
-        }
+        className={`searchbar__preloader ${
+          isLoading ? "searchbar__preloader_hidden" : ""
+        } `}
       >
         <Preloader />
         <h3 className="searchbar__preloader-text">Searching for Recipes</h3>

@@ -1,5 +1,6 @@
 import { processServerResponse } from "./promise";
 import { getToken } from "./token";
+import { API_KEY } from "./constants";
 const baseUrl = new URL("http://localhost:3002");
 
 const searchRecipes = async (searchTerm, page) => {
@@ -30,6 +31,20 @@ const searchRecipes = async (searchTerm, page) => {
 };
 
 export { searchRecipes };
+
+const getPopularRecipes = async (e) => {
+  const url = new URL(
+    `https://api.spoonacular.com/recipes/random?apiKey=${API_KEY}&number=6`
+  );
+  const response = await fetch(url);
+  console.log(response);
+
+  if (!response.ok) {
+    throw new Error(`HTTP error. Status: ${response.status}`);
+  }
+  return response.json();
+};
+export { getPopularRecipes };
 
 const getRecipeSummary = async (recipeId) => {
   const url = new URL(`http://localhost:3002/api/recipes/${recipeId}/summary`);

@@ -1,5 +1,4 @@
 const baseUrl = "http://localhost:3002";
-
 import { processServerResponse } from "./promise";
 import { getToken } from "./token";
 

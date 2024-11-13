@@ -14,8 +14,8 @@
   display: flex;
   justify-content: center;
   border-width: 10px;
-  margin: 0 400px;
   border-radius: 20px;
+  margin: auto;
   background-color: white;
   color: black;
   font-size: 28px;
@@ -27,12 +27,28 @@
   display: flex;
   justify-content: center;
   border-width: 10px;
-  margin: 0 400px;
+  margin: auto;
   border-radius: 20px;
   background-color: white;
   color: black;
   font-weight: 500;
   font-size: 20px;
+}
+
+.searchedRecipes-results__wrapper {
+  width: 100%;
+  display: flex;
+  max-width: 100%;
+  margin: 40px auto 0;
+}
+
+.searchedRecipes__cards__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin: auto;
+  padding: 0;
 }
 
 .searchRecipes-view-more {
