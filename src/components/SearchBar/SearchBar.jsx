@@ -25,8 +25,8 @@ function SearchBar() {
   return (
     <section className="searchbar">
       <div
-        className={`searchbar__preloader ${
-          isLoading ? "searchbar__preloader_hidden" : ""
+        className={`searchbar__preloader_hidden ${
+          isLoading ? "searchbar__preloader" : ""
         } `}
       >
         <Preloader />

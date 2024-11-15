@@ -7,9 +7,9 @@ import "./PopularRecipes.css";
 function PopularRecipes({ handleRecipeSummaryOpen, addFavorite }) {
   const [recommended, setRecommended] = useState([]);
 
-  const getPopularRecipes = async (e) => {
+  /*const getPopularRecipes = async (e) => {
     const api = await fetch(
-      `https://api.spoonacular.com/recipes/random?apiKey=${API_KEY}&number=6`
+      `https://api.spoonacular.com/recipes/random?apiKey=${API_KEY}&number=0`
     );
     const data = await api.json();
     setRecommended(data.recipes);
@@ -17,22 +17,23 @@ function PopularRecipes({ handleRecipeSummaryOpen, addFavorite }) {
 
   useEffect(() => {
     getPopularRecipes();
-  }, []);
+  }, []);*/
 
-  /*useEffect(() => {
-    // const setPopularRecipes = async (e) => {
-    //   try {
-    //     const { results } = await api.getPopularRecipes(recommended);
-    //     console.log("RESULTS", recommended);
-    //     setRecommended(results);
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // };
+  useEffect(() => {
+    const setPopularRecipes = async () => {
+      try {
+        const results = await api.getPopularRecipes();
+        if (results) {
+          setRecommended(results.recipes);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-    // setPopularRecipes();
+    setPopularRecipes();
     console.log(api.getPopularRecipes());
-  }, [api.getPopularRecipes]); */
+  }, []);
 
   return (
     <section className="popularRecipes">

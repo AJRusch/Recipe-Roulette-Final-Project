@@ -33,16 +33,20 @@ const searchRecipes = async (searchTerm, page) => {
 export { searchRecipes };
 
 const getPopularRecipes = async (e) => {
-  const url = new URL(
-    `https://api.spoonacular.com/recipes/random?apiKey=${API_KEY}&number=6`
-  );
-  const response = await fetch(url);
-  console.log(response);
+  try {
+    const url = new URL(
+      `https://api.spoonacular.com/recipes/random?apiKey=${API_KEY}&number=6`
+    );
+    const response = await fetch(url);
+    console.log(response);
 
-  if (!response.ok) {
-    throw new Error(`HTTP error. Status: ${response.status}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error. Status: ${response.status}`);
+    }
+    return response.json();
+  } catch (error) {
+    console.error(error.status);
   }
-  return response.json();
 };
 export { getPopularRecipes };
 

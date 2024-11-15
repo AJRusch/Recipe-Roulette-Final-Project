@@ -194,9 +194,13 @@ function App() {
   }, []);
 
   useEffect(() => {
-    getRecipeItems().then((data) => {
-      setRecipes(data);
-    });
+    try {
+      getRecipeItems().then((data) => {
+        setRecipes(data);
+      });
+    } catch (error) {
+      console.error(error.status);
+    }
   }, []);
 
   useEffect(() => {
