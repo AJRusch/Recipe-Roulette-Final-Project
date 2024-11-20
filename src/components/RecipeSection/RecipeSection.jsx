@@ -7,7 +7,7 @@ function RecipeSection({
   recipes,
   handleRecipeSummaryOpen,
   handleAddRecipe,
-  addFavorite,
+  handleFavorite,
 }) {
   const currentUser = useContext(CurrentUserContext);
   return (
@@ -30,6 +30,7 @@ function RecipeSection({
               key={recipe._id}
               recipe={recipe}
               handleRecipeSummaryOpen={handleRecipeSummaryOpen}
+              handleFavorite={handleFavorite}
             />
           ))}
       </ul>

@@ -44,6 +44,15 @@
   position: relative;
 }
 
+.navbar__user {
+  color: black;
+  margin: 0;
+  border-bottom: 2px solid;
+  background: none;
+  padding: none;
+  cursor: pointer;
+}
+
 .navbar__logout {
   color: black;
   opacity: 0.6;
@@ -60,6 +69,7 @@
   border: none;
   background: none;
   padding: none;
+  cursor: pointer;
 }
 
 .navbar__about-recipes:before {
@@ -106,6 +116,12 @@
 }
 
 .navbar__logout:hover {
+  border-bottom: 2px solid;
+  cursor: pointer;
+  opacity: 1;
+}
+
+.navbar__edit-info:hover {
   border-bottom: 2px solid;
   cursor: pointer;
   opacity: 1;

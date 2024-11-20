@@ -1,8 +1,10 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useContext } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function EditProfileModal({ onClose, isOpen }) {
+function EditProfileModal({ onClose, isOpen, handleEditProfile }) {
   const [value, setValue] = useState({});
+  const currentUser = useContext(CurrentUserContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,8 +23,15 @@ function EditProfileModal({ onClose, isOpen }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //handleEditProfile(value, resetForm); need to implement logic in App.jsx
+    handleEditProfile(value, resetForm);
   };
+
+  useEffect(() => {
+    if (isOpen) {
+      setValue({ name: currentUser?.name });
+    }
+  }, [isOpen, currentUser]);
+
   return (
     <ModalWithForm
       title="Change profile data"

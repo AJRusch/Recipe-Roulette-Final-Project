@@ -158,9 +158,7 @@ function App() {
     const token = getToken();
 
     const updateRecipeCards = (newCard) => (cards) => {
-      return updateRecipeCards.map((recipe) =>
-        recipe._id === id ? newCard : recipe
-      );
+      return cards.map((recipe) => (recipe._id === id ? newCard : recipe));
     };
 
     if (!isFavorited) {
@@ -174,7 +172,7 @@ function App() {
         .then((newCard) => {
           setRecipes(updateRecipeCards(newCard.recipe));
         })
-        .catch(console.error);
+        .catch(console.error).status;
     }
   };
 
@@ -186,14 +184,13 @@ function App() {
 
     isValidToken(token)
       .then((res) => {
-        console.log(res);
         setCurrentUser(res);
         setIsloggedIn(true);
       })
       .catch(console.error);
   }, []);
 
-  useEffect(() => {
+  /*useEffect(() => {
     try {
       getRecipeItems().then((data) => {
         setRecipes(data);
@@ -201,13 +198,26 @@ function App() {
     } catch (error) {
       console.error(error.status);
     }
-  }, []);
+  }, []); */
 
   useEffect(() => {
     if (location.pathname === "/") {
       navigate("/");
     }
   }, [navigate, location.pathname]);
+
+  useEffect(() => {
+    const token = getToken();
+    if (!token) {
+      return;
+    }
+    isValidToken(token)
+      .then((res) => {
+        setCurrentUser(res);
+        setIsloggedIn(true);
+      })
+      .catch(console.error);
+  }, []);
 
   return (
     <div className="recipe-app">
@@ -226,7 +236,7 @@ function App() {
               element={
                 <Main
                   handleRecipeSummaryOpen={handleRecipeSummaryOpen}
-                  addFavorite={handleFavorite}
+                  handleFavorite={handleFavorite}
                 />
               }
             />
@@ -237,6 +247,7 @@ function App() {
                   handleAddRecipe={handleAddRecipe}
                   recipes={recipes}
                   addFavorite={handleFavorite}
+                  handleFavorite={handleFavorite}
                 />
               }
             />
@@ -244,7 +255,7 @@ function App() {
               path="/searched"
               element={
                 <SearchedRecipes
-                  addFavorite={handleFavorite}
+                  handleFavorite={handleFavorite}
                   handleRecipeSummaryOpen={handleRecipeSummaryOpen}
                 />
               }
@@ -264,13 +275,13 @@ function App() {
           onClose={closeActiveModal}
           setActiveModal={setActiveModal}
           closeActiveModal={closeActiveModal}
+          handleRegistration={handleRegistration}
         />
         <LoginModal
           isOpen={activeModal === "login"}
           onClose={closeActiveModal}
           setActiveModal={setActiveModal}
           closeActiveModal={closeActiveModal}
-          handleRegistration={handleRegistration}
           handleLogin={handleLogin}
         />
         <EditProfileModal

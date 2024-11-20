@@ -4,20 +4,8 @@ import RecipeCard from "../RecipeCard/RecipeCard";
 import * as api from "../../utils/api";
 import "./PopularRecipes.css";
 
-function PopularRecipes({ handleRecipeSummaryOpen, addFavorite }) {
+function PopularRecipes({ handleRecipeSummaryOpen, handleFavorite }) {
   const [recommended, setRecommended] = useState([]);
-
-  /*const getPopularRecipes = async (e) => {
-    const api = await fetch(
-      `https://api.spoonacular.com/recipes/random?apiKey=${API_KEY}&number=0`
-    );
-    const data = await api.json();
-    setRecommended(data.recipes);
-  };
-
-  useEffect(() => {
-    getPopularRecipes();
-  }, []);*/
 
   useEffect(() => {
     const setPopularRecipes = async () => {
@@ -32,7 +20,6 @@ function PopularRecipes({ handleRecipeSummaryOpen, addFavorite }) {
     };
 
     setPopularRecipes();
-    console.log(api.getPopularRecipes());
   }, []);
 
   return (
@@ -44,6 +31,7 @@ function PopularRecipes({ handleRecipeSummaryOpen, addFavorite }) {
         <ul className="popularRecipes__cards__list">
           {recommended?.map((recipe) => (
             <RecipeCard
+              handleFavorite={handleFavorite}
               key={recipe.id}
               recipe={recipe}
               handleRecipeSummaryOpen={handleRecipeSummaryOpen}

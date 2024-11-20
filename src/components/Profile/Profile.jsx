@@ -6,12 +6,12 @@ function Profile({
   recipes,
   handleRecipeSummaryOpen,
   handleAddRecipe,
-  addFavorite,
+  handleFavorite,
 }) {
   return (
     <section className="profile__recipe-section">
       <RecipeSection
-        addFavorite={addFavorite}
+        handleFavorite={handleFavorite}
         recipes={recipes}
         handleAddRecipe={handleAddRecipe}
         handleRecipeSummaryOpen={handleRecipeSummaryOpen}

@@ -9,6 +9,7 @@ function SearchBar() {
   const [searchInput, setSearchInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const pageNumber = useRef(1);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,6 +18,7 @@ function SearchBar() {
       const { results } = await api.searchRecipes(searchInput, 1);
       console.log(results);
       navigate("/searched", { state: { searchResults: results } });
+      pageNumber.current = 1;
     } catch (error) {
       console.error(error);
     }

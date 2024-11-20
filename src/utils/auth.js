@@ -3,6 +3,7 @@ import { processServerResponse } from "./promise";
 import { getToken } from "./token";
 
 function registerUser({ name, email, password }) {
+  debugger;
   return fetch(`${baseUrl}/signup`, {
     method: "POST",
     headers: {

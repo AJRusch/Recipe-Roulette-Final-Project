@@ -4,29 +4,31 @@ import { useLocation } from "react-router-dom";
 import * as api from "../../utils/api";
 import RecipeCard from "../RecipeCard/RecipeCard";
 
-function SearchedRecipes({ handleRecipeSummaryOpen, addFavorite }) {
+function SearchedRecipes({ handleRecipeSummaryOpen, handleFavorite }) {
+  const pageNumber = useRef(1);
   const [recipes, setRecipes] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const location = useLocation();
   const { searchResults } = location.state || { searchResults: [] };
 
-  const getSearched = async (e) => {
+  /* const getSearched = async (e) => {
     try {
       const { results } = await api.searchRecipes(searchInput, 1);
       console.log(results);
-      setRecipes(results);
+      setRecipes(results.recipes);
       pageNumber.current = 1;
     } catch (error) {
       console.error(error);
     }
-  };
+  }; */
 
   const handleViewMore = async () => {
     const nextPage = pageNumber.current + 1;
     try {
-      const nextRecipePage = await api.searchRecipes(searchInput, nextPage);
-      setRecipes([...recipes, ...nextRecipePage.results]);
+      const nextSearchResults = await api.searchRecipes(searchInput, nextPage);
+      setRecipes([...searchResults, ...nextSearchResults.results]);
       pageNumber.current = nextPage;
+      return nextSearchResults;
     } catch (error) {
       console.log(error);
     }
@@ -34,7 +36,6 @@ function SearchedRecipes({ handleRecipeSummaryOpen, addFavorite }) {
 
   useEffect(() => {
     if (!searchResults || !Array.isArray(searchResults)) {
-      getSearched();
     }
   }, []);
 
@@ -51,6 +52,7 @@ function SearchedRecipes({ handleRecipeSummaryOpen, addFavorite }) {
                 key={recipe.id}
                 recipe={recipe}
                 handleRecipeSummaryOpen={handleRecipeSummaryOpen}
+                handleFavorite={handleFavorite}
               />
             ))}
         </ul>

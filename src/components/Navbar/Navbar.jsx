@@ -16,7 +16,9 @@ function Navbar({
       <div className="navbar__menu">
         {isLoggedIn ? (
           <div className="navbar__menu">
-            <p className="navbar__user">Hello {currentUser.name}</p>
+            <Link to="/profile" style={{ textDecoration: "none" }}>
+              <p className="navbar__user">Hello {currentUser.name}</p>
+            </Link>
             <button
               onClick={handleLogout}
               type="button"
