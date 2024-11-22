@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import * as api from "../../utils/api";
 import RecipeCard from "../RecipeCard/RecipeCard";
 
-function SearchedRecipes({ handleRecipeSummaryOpen, handleFavorite }) {
+function SearchedRecipes({ handleRecipeSummaryOpen }) {
   const pageNumber = useRef(1);
   const [recipes, setRecipes] = useState([]);
   const [searchInput, setSearchInput] = useState("");
@@ -52,7 +52,6 @@ function SearchedRecipes({ handleRecipeSummaryOpen, handleFavorite }) {
                 key={recipe.id}
                 recipe={recipe}
                 handleRecipeSummaryOpen={handleRecipeSummaryOpen}
-                handleFavorite={handleFavorite}
               />
             ))}
         </ul>

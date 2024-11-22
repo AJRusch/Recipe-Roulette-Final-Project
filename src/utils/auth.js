@@ -1,4 +1,7 @@
-const baseUrl = "http://localhost:3002";
+const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://api.reciperoulette.twilightparadox.com"
+    : "http://localhost:3002";
 import { processServerResponse } from "./promise";
 import { getToken } from "./token";
 

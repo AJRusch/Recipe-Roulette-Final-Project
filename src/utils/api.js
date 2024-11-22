@@ -1,7 +1,12 @@
 import { processServerResponse } from "./promise";
 import { getToken } from "./token";
 import { API_KEY } from "./constants";
-const baseUrl = "http://localhost:3002";
+//const baseUrl = "http://localhost:3002";
+
+const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://api.reciperoulette.twilightparadox.com"
+    : "http://localhost:3002";
 
 const searchRecipes = async (searchTerm, page) => {
   try {
@@ -30,8 +35,6 @@ const searchRecipes = async (searchTerm, page) => {
   }
 };
 
-export { searchRecipes };
-
 const getPopularRecipes = async (e) => {
   try {
     const url = new URL(
@@ -47,7 +50,6 @@ const getPopularRecipes = async (e) => {
     console.error(error.status);
   }
 };
-export { getPopularRecipes };
 
 const getRecipeSummary = async (recipeId) => {
   const url = new URL(`http://localhost:3002/api/recipes/${recipeId}/summary`);
@@ -61,8 +63,6 @@ const getRecipeSummary = async (recipeId) => {
   return response.json();
 };
 
-export { getRecipeSummary };
-
 function getRecipeItems() {
   return fetch(`${baseUrl}/recipes`, {
     method: "GET",
@@ -73,8 +73,6 @@ function getRecipeItems() {
     },
   }).then(processServerResponse);
 }
-
-export { getRecipeItems };
 
 function createRecipecard({ title, imageUrl, summary }, token) {
   return fetch(`${baseUrl}/recipes`, {
@@ -87,8 +85,6 @@ function createRecipecard({ title, imageUrl, summary }, token) {
   }).then(processServerResponse);
 }
 
-export { createRecipecard };
-
 function deleteRecipeCard(recipeId, token) {
   return fetch(`${baseUrl}/recipes/${recipeId}`, {
     method: "DELETE",
@@ -99,30 +95,22 @@ function deleteRecipeCard(recipeId, token) {
   }).then(processServerResponse);
 }
 
-export { deleteRecipeCard };
-
-function addFavorite(recipeId) {
-  const token = getToken();
-  return fetch(`${baseUrl}/recipes/${recipeId}/favorites`, {
-    method: "PUT",
+function saveRecipe({ title, summary, imageUrl }) {
+  return fetch(`${baseUrl}/recipes`, {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
     },
+    body: JSON.stringify({ title, summary, imageUrl }),
   }).then(processServerResponse);
 }
 
-export { addFavorite };
-
-function removeFavorite(recipeId) {
-  const token = getToken();
-  return fetch(`${baseUrl}/recipes/${recipeId}/favorites`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
-    },
-  }).then(processServerResponse);
-}
-
-export { removeFavorite };
+export {
+  saveRecipe,
+  createRecipecard,
+  deleteRecipeCard,
+  searchRecipes,
+  getPopularRecipes,
+  getRecipeSummary,
+};

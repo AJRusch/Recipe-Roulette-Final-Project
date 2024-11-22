@@ -15,6 +15,7 @@ import SearchedRecipes from "../SearchedRecipes/SearchedRecipes";
 import Profile from "../Profile/Profile";
 import About from "../About/About";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
+import { UserRecipeContext } from "../../contexts/UserRecipeContext";
 import { getToken, setToken } from "../../utils/token";
 import {
   registerUser,
@@ -25,9 +26,7 @@ import {
 import {
   createRecipecard,
   deleteRecipeCard,
-  addFavorite,
-  removeFavorite,
-  getRecipeItems,
+  saveRecipe,
 } from "../../utils/api";
 
 function App() {
@@ -39,6 +38,11 @@ function App() {
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  const UserRecipeContext = {
+    recipes,
+    setRecipes,
+  };
 
   const handleRegisterUser = () => {
     setActiveModal("register");
@@ -153,27 +157,40 @@ function App() {
     handleSubmit(startRequest);
   };
 
-  const handleFavorite = ({ _id, isFavorited }) => {
-    const id = _id;
+  const handleSaveRecipe = (recipe) => {
     const token = getToken();
+    if (!token) return;
 
-    const updateRecipeCards = (newCard) => (cards) => {
-      return cards.map((recipe) => (recipe._id === id ? newCard : recipe));
-    };
-
-    if (!isFavorited) {
-      addFavorite(id, token)
-        .then((newCard) => {
-          setRecipes(updateRecipeCards(newCard.recipe));
+    if (
+      recipes.some((existingRecipe) => {
+        return existingRecipe.imageUrl === recipe.imageUrl;
+      })
+    ) {
+      const unSavedRecipe = recipes.find(
+        (existingRecipe) => existingRecipe.imageUrl === recipe.imageUrl
+      );
+      deleteRecipeCard(unSavedRecipe._id, token)
+        .then((data) => {
+          setRecipes((prevRecipes) =>
+            prevRecipes.filter((recipe) => recipe._id !== data.data._id)
+          );
         })
-        .catch(console.error);
-    } else if (isFavorited) {
-      removeFavorite(id, token)
-        .then((newCard) => {
-          setRecipes(updateRecipeCards(newCard.recipe));
-        })
-        .catch(console.error).status;
+        .catch((err) => console.error(err));
+      return;
     }
+
+    saveRecipe(
+      {
+        title: recipe.title,
+        summary: recipe.summary,
+        imageUrl: recipe.urlToImage,
+      },
+      token
+    )
+      .then((newRecipe) => {
+        setRecipes((prevRecipes) => [...prevRecipes, newRecipe.data]);
+      })
+      .catch((err) => console.error(err));
   };
 
   useEffect(() => {
@@ -234,28 +251,19 @@ function App() {
             <Route
               path="/"
               element={
-                <Main
-                  handleRecipeSummaryOpen={handleRecipeSummaryOpen}
-                  handleFavorite={handleFavorite}
-                />
+                <Main handleRecipeSummaryOpen={handleRecipeSummaryOpen} />
               }
             />
             <Route
               path="/profile"
               element={
-                <Profile
-                  handleAddRecipe={handleAddRecipe}
-                  recipes={recipes}
-                  addFavorite={handleFavorite}
-                  handleFavorite={handleFavorite}
-                />
+                <Profile handleAddRecipe={handleAddRecipe} recipes={recipes} />
               }
             />
             <Route
               path="/searched"
               element={
                 <SearchedRecipes
-                  handleFavorite={handleFavorite}
                   handleRecipeSummaryOpen={handleRecipeSummaryOpen}
                 />
               }

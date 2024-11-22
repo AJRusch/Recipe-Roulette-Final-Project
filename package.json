@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://ajrusch.github.io/Recipe-Roulette-Final-Project/src/main.jsx",
+  "homepage": "https://reciperoulette.twilightparadox.com",
   "scripts": {
     "dev": "vite --open",
     "build": "vite build",

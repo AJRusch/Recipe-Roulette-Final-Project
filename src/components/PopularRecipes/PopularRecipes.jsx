@@ -4,7 +4,7 @@ import RecipeCard from "../RecipeCard/RecipeCard";
 import * as api from "../../utils/api";
 import "./PopularRecipes.css";
 
-function PopularRecipes({ handleRecipeSummaryOpen, handleFavorite }) {
+function PopularRecipes({ handleRecipeSummaryOpen }) {
   const [recommended, setRecommended] = useState([]);
 
   useEffect(() => {
@@ -31,7 +31,6 @@ function PopularRecipes({ handleRecipeSummaryOpen, handleFavorite }) {
         <ul className="popularRecipes__cards__list">
           {recommended?.map((recipe) => (
             <RecipeCard
-              handleFavorite={handleFavorite}
               key={recipe.id}
               recipe={recipe}
               handleRecipeSummaryOpen={handleRecipeSummaryOpen}

@@ -4,20 +4,11 @@ import favoriteInactive from "../../assets/likeInactive.svg";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import { useContext, useState } from "react";
 
-function RecipeCard({ recipe, handleRecipeSummaryOpen, handleFavorite }) {
+function RecipeCard({ recipe, handleRecipeSummaryOpen }) {
   const currentUser = useContext(CurrentUserContext);
-  const [isFavorited, setIsFavorited] = useState(
-    recipe.favorites?.some((id) => id === currentUser?._id) || false
-  );
 
   const handleRecipeClick = () => {
     handleRecipeSummaryOpen(recipe);
-  };
-
-  const handleOnFavorite = (e) => {
-    e.preventDefault();
-    setIsFavorited(!isFavorited);
-    handleFavorite({ _id: recipe.id, isFavorited: !isFavorited });
   };
 
   return (
@@ -32,9 +23,8 @@ function RecipeCard({ recipe, handleRecipeSummaryOpen, handleFavorite }) {
         <h3 className="recipe-card__title">{recipe.title}</h3>
         {currentUser && (
           <img
-            src={isFavorited ? favoriteActive : favoriteInactive}
-            alt={isFavorited ? "Unfavorited" : "Favorited"}
-            onClick={handleOnFavorite}
+            src={favoriteActive}
+            alt="Favorited"
             className="recipe-card__like-btn"
           />
         )}
