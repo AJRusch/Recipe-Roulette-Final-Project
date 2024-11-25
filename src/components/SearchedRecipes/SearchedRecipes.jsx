@@ -4,23 +4,12 @@ import { useLocation } from "react-router-dom";
 import * as api from "../../utils/api";
 import RecipeCard from "../RecipeCard/RecipeCard";
 
-function SearchedRecipes({ handleRecipeSummaryOpen }) {
+function SearchedRecipes({ handleRecipeSummaryOpen, handleSaveRecipe }) {
   const pageNumber = useRef(1);
   const [recipes, setRecipes] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const location = useLocation();
   const { searchResults } = location.state || { searchResults: [] };
-
-  /* const getSearched = async (e) => {
-    try {
-      const { results } = await api.searchRecipes(searchInput, 1);
-      console.log(results);
-      setRecipes(results.recipes);
-      pageNumber.current = 1;
-    } catch (error) {
-      console.error(error);
-    }
-  }; */
 
   const handleViewMore = async () => {
     const nextPage = pageNumber.current + 1;
@@ -52,6 +41,7 @@ function SearchedRecipes({ handleRecipeSummaryOpen }) {
                 key={recipe.id}
                 recipe={recipe}
                 handleRecipeSummaryOpen={handleRecipeSummaryOpen}
+                handleSaveRecipe={handleSaveRecipe}
               />
             ))}
         </ul>

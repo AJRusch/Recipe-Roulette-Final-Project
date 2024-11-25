@@ -27,22 +27,19 @@ import {
   createRecipecard,
   deleteRecipeCard,
   saveRecipe,
+  getRecipeItems,
 } from "../../utils/api";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
   const [recipes, setRecipes] = useState([]);
+  const [savedRecipes, setSavedRecipes] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoggedIn, setIsloggedIn] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
 
   const navigate = useNavigate();
   const location = useLocation();
-
-  const UserRecipeContext = {
-    recipes,
-    setRecipes,
-  };
 
   const handleRegisterUser = () => {
     setActiveModal("register");
@@ -162,7 +159,7 @@ function App() {
     if (!token) return;
 
     if (
-      recipes.some((existingRecipe) => {
+      savedRecipes.some((existingRecipe) => {
         return existingRecipe.imageUrl === recipe.imageUrl;
       })
     ) {
@@ -171,7 +168,7 @@ function App() {
       );
       deleteRecipeCard(unSavedRecipe._id, token)
         .then((data) => {
-          setRecipes((prevRecipes) =>
+          setSavedRecipes((prevRecipes) =>
             prevRecipes.filter((recipe) => recipe._id !== data.data._id)
           );
         })
@@ -188,7 +185,7 @@ function App() {
       token
     )
       .then((newRecipe) => {
-        setRecipes((prevRecipes) => [...prevRecipes, newRecipe.data]);
+        setSavedRecipes((prevRecipes) => [...prevRecipes, newRecipe.data]);
       })
       .catch((err) => console.error(err));
   };
@@ -210,7 +207,7 @@ function App() {
   /*useEffect(() => {
     try {
       getRecipeItems().then((data) => {
-        setRecipes(data);
+        setSavedRecipes(data);
       });
     } catch (error) {
       console.error(error.status);
@@ -251,7 +248,10 @@ function App() {
             <Route
               path="/"
               element={
-                <Main handleRecipeSummaryOpen={handleRecipeSummaryOpen} />
+                <Main
+                  handleRecipeSummaryOpen={handleRecipeSummaryOpen}
+                  handleSaveRecipe={handleSaveRecipe}
+                />
               }
             />
             <Route
@@ -265,6 +265,7 @@ function App() {
               element={
                 <SearchedRecipes
                   handleRecipeSummaryOpen={handleRecipeSummaryOpen}
+                  handleSaveRecipe={handleSaveRecipe}
                 />
               }
             />

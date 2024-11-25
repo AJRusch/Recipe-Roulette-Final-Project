@@ -4,7 +4,7 @@ import RecipeCard from "../RecipeCard/RecipeCard";
 import * as api from "../../utils/api";
 import "./PopularRecipes.css";
 
-function PopularRecipes({ handleRecipeSummaryOpen }) {
+function PopularRecipes({ handleRecipeSummaryOpen, handleSaveRecipe }) {
   const [recommended, setRecommended] = useState([]);
 
   useEffect(() => {
@@ -34,6 +34,7 @@ function PopularRecipes({ handleRecipeSummaryOpen }) {
               key={recipe.id}
               recipe={recipe}
               handleRecipeSummaryOpen={handleRecipeSummaryOpen}
+              handleSaveRecipe={handleSaveRecipe}
             />
           ))}
         </ul>

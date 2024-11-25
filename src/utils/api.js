@@ -1,7 +1,6 @@
 import { processServerResponse } from "./promise";
 import { getToken } from "./token";
 import { API_KEY } from "./constants";
-//const baseUrl = "http://localhost:3002";
 
 const baseUrl =
   process.env.NODE_ENV === "production"
@@ -63,7 +62,7 @@ const getRecipeSummary = async (recipeId) => {
   return response.json();
 };
 
-function getRecipeItems() {
+function getRecipeItems(token) {
   return fetch(`${baseUrl}/recipes`, {
     method: "GET",
     headers: {
@@ -95,7 +94,7 @@ function deleteRecipeCard(recipeId, token) {
   }).then(processServerResponse);
 }
 
-function saveRecipe({ title, summary, imageUrl }) {
+function saveRecipe({ title, summary, imageUrl }, token) {
   return fetch(`${baseUrl}/recipes`, {
     method: "POST",
     headers: {
@@ -113,4 +112,5 @@ export {
   searchRecipes,
   getPopularRecipes,
   getRecipeSummary,
+  getRecipeItems,
 };
