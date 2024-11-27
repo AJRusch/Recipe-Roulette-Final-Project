@@ -13,6 +13,7 @@ import AddRecipeModal from "../AddRecipeModal/AddRecipeModal";
 import RecipeModal from "../RecipeModal/RecipeModal";
 import SearchedRecipes from "../SearchedRecipes/SearchedRecipes";
 import Profile from "../Profile/Profile";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import About from "../About/About";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import { UserRecipeContext } from "../../contexts/UserRecipeContext";
@@ -34,6 +35,7 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [recipes, setRecipes] = useState([]);
   const [savedRecipes, setSavedRecipes] = useState([]);
+  const [recommended, setRecommended] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoggedIn, setIsloggedIn] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
@@ -158,18 +160,22 @@ function App() {
     const token = getToken();
     if (!token) return;
 
-    if (
-      savedRecipes.some((existingRecipe) => {
-        return existingRecipe.imageUrl === recipe.imageUrl;
-      })
-    ) {
-      const unSavedRecipe = recipes.find(
+    const savedRecipe = savedRecipes.find((existingRecipe) => {
+      return existingRecipe.imageUrl === recipe.imageUrl;
+    });
+    if (savedRecipe) {
+      console.log(recipes);
+      console.log(recipe);
+      const unSavedRecipe = [...recommended, ...recipes].find(
         (existingRecipe) => existingRecipe.imageUrl === recipe.imageUrl
       );
-      deleteRecipeCard(unSavedRecipe._id, token)
+      console.log(savedRecipe);
+      deleteRecipeCard(savedRecipe._id, token)
         .then((data) => {
+          console.log(savedRecipes);
+          console.log(data.recipe);
           setSavedRecipes((prevRecipes) =>
-            prevRecipes.filter((recipe) => recipe._id !== data.data._id)
+            prevRecipes.filter((recipe) => recipe._id !== data.recipe._id)
           );
         })
         .catch((err) => console.error(err));
@@ -180,7 +186,7 @@ function App() {
       {
         title: recipe.title,
         summary: recipe.summary,
-        imageUrl: recipe.urlToImage,
+        image: recipe.sourceUrl,
       },
       token
     )
@@ -204,15 +210,16 @@ function App() {
       .catch(console.error);
   }, []);
 
-  /*useEffect(() => {
+  useEffect(() => {
+    const token = getToken();
     try {
-      getRecipeItems().then((data) => {
+      getRecipeItems(token).then((data) => {
         setSavedRecipes(data);
       });
     } catch (error) {
-      console.error(error.status);
+      console.error(error);
     }
-  }, []); */
+  }, []);
 
   useEffect(() => {
     if (location.pathname === "/") {
@@ -251,13 +258,20 @@ function App() {
                 <Main
                   handleRecipeSummaryOpen={handleRecipeSummaryOpen}
                   handleSaveRecipe={handleSaveRecipe}
+                  recommended={recommended}
+                  setRecommended={setRecommended}
                 />
               }
             />
             <Route
               path="/profile"
               element={
-                <Profile handleAddRecipe={handleAddRecipe} recipes={recipes} />
+                <ProtectedRoute isLoggedIn={isLoggedIn}>
+                  <Profile
+                    handleAddRecipe={handleAddRecipe}
+                    recipes={recipes}
+                  />
+                </ProtectedRoute>
               }
             />
             <Route

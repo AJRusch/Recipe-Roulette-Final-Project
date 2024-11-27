@@ -1,5 +1,4 @@
 import { processServerResponse } from "./promise";
-import { getToken } from "./token";
 import { API_KEY } from "./constants";
 
 const baseUrl =
@@ -34,7 +33,7 @@ const searchRecipes = async (searchTerm, page) => {
   }
 };
 
-const getPopularRecipes = async (e) => {
+const getPopularRecipes = async () => {
   try {
     const url = new URL(
       `https://api.spoonacular.com/recipes/random?apiKey=${API_KEY}&number=0`
@@ -94,14 +93,18 @@ function deleteRecipeCard(recipeId, token) {
   }).then(processServerResponse);
 }
 
-function saveRecipe({ title, summary, imageUrl }, token) {
+function saveRecipe({ title, summary, image }, token) {
   return fetch(`${baseUrl}/recipes`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ title, summary, imageUrl }),
+    body: JSON.stringify({
+      title,
+      summary,
+      image,
+    }),
   }).then(processServerResponse);
 }
 

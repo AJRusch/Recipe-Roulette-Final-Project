@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
-import { API_KEY } from "../../utils/constants";
+import { useEffect } from "react";
 import RecipeCard from "../RecipeCard/RecipeCard";
 import * as api from "../../utils/api";
 import "./PopularRecipes.css";
 
-function PopularRecipes({ handleRecipeSummaryOpen, handleSaveRecipe }) {
-  const [recommended, setRecommended] = useState([]);
-
+function PopularRecipes({
+  handleRecipeSummaryOpen,
+  handleSaveRecipe,
+  recommended,
+  setRecommended,
+}) {
   useEffect(() => {
     const setPopularRecipes = async () => {
       try {

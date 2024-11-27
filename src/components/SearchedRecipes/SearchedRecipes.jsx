@@ -1,5 +1,5 @@
 import "./SearchedRecipes.css";
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import * as api from "../../utils/api";
 import RecipeCard from "../RecipeCard/RecipeCard";

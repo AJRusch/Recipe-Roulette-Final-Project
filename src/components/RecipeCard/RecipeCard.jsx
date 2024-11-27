@@ -17,7 +17,7 @@ function RecipeCard({ recipe, handleRecipeSummaryOpen, handleSaveRecipe }) {
   const handleSaveClick = (e) => {
     e.preventDefault(e);
     setIsSaved(!isSaved);
-    handleSaveRecipe({ _id: recipe.id, isSaved: !isSaved });
+    handleSaveRecipe({ ...recipe, isSaved: !isSaved });
   };
 
   return (
