@@ -4,7 +4,12 @@ import saveInactive from "../../assets/saveInactive.svg";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import { useContext, useState } from "react";
 
-function RecipeCard({ recipe, handleRecipeSummaryOpen, handleSaveRecipe }) {
+function RecipeCard({
+  recipe,
+  handleRecipeSummaryOpen,
+  handleSaveRecipe,
+  savedRecipes,
+}) {
   const currentUser = useContext(CurrentUserContext);
   const [isSaved, setIsSaved] = useState(
     recipe.recipes?.some((id) => id === currentUser?._id) || false

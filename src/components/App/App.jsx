@@ -9,7 +9,7 @@ import Footer from "../Footer/Footer";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
 import EditProfileModal from "../EditProfileModal/EditProfileModal";
-import AddRecipeModal from "../AddRecipeModal/AddRecipeModal";
+import AddItemModal from "../AddItemModal/AddItemModal";
 import RecipeModal from "../RecipeModal/RecipeModal";
 import SearchedRecipes from "../SearchedRecipes/SearchedRecipes";
 import Profile from "../Profile/Profile";
@@ -24,12 +24,7 @@ import {
   updateUser,
   isValidToken,
 } from "../../utils/auth";
-import {
-  createRecipecard,
-  deleteRecipeCard,
-  saveRecipe,
-  getRecipeItems,
-} from "../../utils/api";
+import { deleteRecipeCard, saveRecipe, getRecipeItems } from "../../utils/api";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
@@ -131,38 +126,16 @@ function App() {
     request().then(closeActiveModal).catch(console.error);
   };
 
-  const handleAddRecipeSubmit = (newRecipe, resetCurrentForm) => {
-    const token = getToken();
-
-    const startRequest = () => {
-      return createRecipecard(newRecipe, token).then((res) => {
-        setRecipes([res.data, ...recipes]);
-        resetCurrentForm();
-      });
-    };
-    handleSubmit(startRequest);
-  };
-
-  const handleDeleteRecipe = () => {
-    const token = getToken();
-
-    const startRequest = () => {
-      return deleteRecipeCard(selectedRecipe._id, token).then(() =>
-        setRecipes((prevRecipe) =>
-          prevRecipe.filter((recipe) => recipe._id !== selectedRecipe._id)
-        )
-      );
-    };
-    handleSubmit(startRequest);
-  };
-
-  const handleSaveRecipe = (recipe) => {
+  /*const handleSaveRecipe = (recipe) => {
     const token = getToken();
     if (!token) return;
 
     const savedRecipe = savedRecipes.find((existingRecipe) => {
       return existingRecipe.imageUrl === recipe.imageUrl;
     });
+    const unSavedRecipe = [...recommended, ...recipes].find(
+      (existingRecipe) => existingRecipe.imageUrl === recipe.imageUrl
+    );
     if (savedRecipe) {
       console.log(recipes);
       console.log(recipe);
@@ -180,20 +153,57 @@ function App() {
         })
         .catch((err) => console.error(err));
       return;
+    } else {
+      saveRecipe(
+        {
+          title: recipe.title,
+          summary: recipe.summary,
+          image: recipe.image,
+        },
+        token
+      )
+        .then((newRecipe) => {
+          setSavedRecipes((prevRecipes) => [...prevRecipes, newRecipe.data]);
+        })
+        .catch((err) => console.error(err));
     }
+  }; */
 
-    saveRecipe(
-      {
-        title: recipe.title,
-        summary: recipe.summary,
-        image: recipe.sourceUrl,
-      },
-      token
-    )
-      .then((newRecipe) => {
-        setSavedRecipes((prevRecipes) => [...prevRecipes, newRecipe.data]);
-      })
-      .catch((err) => console.error(err));
+  const handleSaveRecipe = (recipe) => {
+    const token = getToken();
+    if (!token) return;
+
+    const savedRecipe = savedRecipes.find(
+      (existingRecipe) => existingRecipe.imageUrl === recipe.imageUrl
+    );
+
+    if (savedRecipe) {
+      // If the recipe is already saved, delete it
+      deleteRecipeCard(savedRecipe._id, token)
+        .then((data) => {
+          setSavedRecipes((prevRecipes) =>
+            prevRecipes.filter((r) => r._id !== data.recipe._id)
+          );
+        })
+        .catch((err) => console.error(err));
+    } else {
+      // If the recipe is not saved, add it
+      saveRecipe(
+        {
+          title: recipe.title,
+          summary: recipe.summary,
+          image: recipe.image,
+        },
+        token
+      )
+        .then((newRecipe) => {
+          setSavedRecipes((prevRecipes) => {
+            console.log("Updating with:", [...prevRecipes, newRecipe.data]);
+            return [...prevRecipes, newRecipe.data];
+          });
+        })
+        .catch((err) => console.error(err));
+    }
   };
 
   useEffect(() => {
@@ -268,8 +278,9 @@ function App() {
               element={
                 <ProtectedRoute isLoggedIn={isLoggedIn}>
                   <Profile
-                    handleAddRecipe={handleAddRecipe}
-                    recipes={recipes}
+                    savedRecipes={savedRecipes}
+                    handleSaveRecipe={handleSaveRecipe}
+                    handleRecipeSummaryOpen={handleRecipeSummaryOpen}
                   />
                 </ProtectedRoute>
               }
@@ -288,11 +299,6 @@ function App() {
 
           <Footer />
         </div>
-        <AddRecipeModal
-          onClose={closeActiveModal}
-          isOpen={activeModal === "add-recipe"}
-          handleAddRecipeSubmit={handleAddRecipeSubmit}
-        />
         <RegisterModal
           isOpen={activeModal === "register"}
           onClose={closeActiveModal}

@@ -4,9 +4,10 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 import { useContext } from "react";
 
 function RecipeSection({
-  recipes,
+  savedRecipes,
+  handleSaveRecipe,
   handleRecipeSummaryOpen,
-  handleAddRecipe,
+
   handleFavorite,
 }) {
   const currentUser = useContext(CurrentUserContext);
@@ -14,16 +15,9 @@ function RecipeSection({
     <div className="recipe-section">
       <div className="recipe__menu">
         <p className="recipe__header">Here is a list of your saved Recipes:</p>
-        <button
-          type="button"
-          onClick={handleAddRecipe}
-          className="recipe__add-btn"
-        >
-          + Add Recipe
-        </button>
       </div>
       <ul className="recipe-section__cards__list">
-        {recipes
+        {savedRecipes
           .filter((recipe) => recipe.owner === currentUser._id)
           .map((recipe) => (
             <RecipeCard
@@ -31,6 +25,8 @@ function RecipeSection({
               recipe={recipe}
               handleRecipeSummaryOpen={handleRecipeSummaryOpen}
               handleFavorite={handleFavorite}
+              handleSaveRecipe={handleSaveRecipe}
+              savedRecipes={savedRecipes}
             />
           ))}
       </ul>
