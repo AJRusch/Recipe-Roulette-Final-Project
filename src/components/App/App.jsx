@@ -34,6 +34,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoggedIn, setIsloggedIn] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
+  const [protectedDestination, setProtectedDestination] = useState("/profile");
 
   const navigate = useNavigate();
   const location = useLocation();
