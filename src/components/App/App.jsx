@@ -9,14 +9,12 @@ import Footer from "../Footer/Footer";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
 import EditProfileModal from "../EditProfileModal/EditProfileModal";
-import AddItemModal from "../AddItemModal/AddItemModal";
 import RecipeModal from "../RecipeModal/RecipeModal";
 import SearchedRecipes from "../SearchedRecipes/SearchedRecipes";
 import Profile from "../Profile/Profile";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import About from "../About/About";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
-import { UserRecipeContext } from "../../contexts/UserRecipeContext";
 import { getToken, setToken } from "../../utils/token";
 import {
   registerUser,
@@ -28,13 +26,12 @@ import { deleteRecipeCard, saveRecipe, getRecipeItems } from "../../utils/api";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
-  const [recipes, setRecipes] = useState([]);
+  //const [recipes, setRecipes] = useState([]);
   const [savedRecipes, setSavedRecipes] = useState([]);
   const [recommended, setRecommended] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoggedIn, setIsloggedIn] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
-  const [protectedDestination, setProtectedDestination] = useState("/profile");
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -49,10 +46,6 @@ function App() {
 
   const handleEditProfileUser = () => {
     setActiveModal("edit-profile");
-  };
-
-  const handleAddRecipe = () => {
-    setActiveModal("add-recipe");
   };
 
   const handleRecipeSummaryOpen = (recipe) => {
@@ -97,7 +90,7 @@ function App() {
         setCurrentUser(user);
         setIsloggedIn(true);
         closeActiveModal();
-        navigate(protectedDestination || "/");
+        navigate("/");
       })
       .catch((err) => {
         console.error("Wrong Login information", err);
@@ -123,59 +116,12 @@ function App() {
     navigate("/");
   };
 
-  const handleSubmit = (request) => {
-    request().then(closeActiveModal).catch(console.error);
-  };
-
-  /*const handleSaveRecipe = (recipe) => {
-    const token = getToken();
-    if (!token) return;
-
-    const savedRecipe = savedRecipes.find((existingRecipe) => {
-      return existingRecipe.imageUrl === recipe.imageUrl;
-    });
-    const unSavedRecipe = [...recommended, ...recipes].find(
-      (existingRecipe) => existingRecipe.imageUrl === recipe.imageUrl
-    );
-    if (savedRecipe) {
-      console.log(recipes);
-      console.log(recipe);
-      const unSavedRecipe = [...recommended, ...recipes].find(
-        (existingRecipe) => existingRecipe.imageUrl === recipe.imageUrl
-      );
-      console.log(savedRecipe);
-      deleteRecipeCard(savedRecipe._id, token)
-        .then((data) => {
-          console.log(savedRecipes);
-          console.log(data.recipe);
-          setSavedRecipes((prevRecipes) =>
-            prevRecipes.filter((recipe) => recipe._id !== data.recipe._id)
-          );
-        })
-        .catch((err) => console.error(err));
-      return;
-    } else {
-      saveRecipe(
-        {
-          title: recipe.title,
-          summary: recipe.summary,
-          image: recipe.image,
-        },
-        token
-      )
-        .then((newRecipe) => {
-          setSavedRecipes((prevRecipes) => [...prevRecipes, newRecipe.data]);
-        })
-        .catch((err) => console.error(err));
-    }
-  }; */
-
   const handleSaveRecipe = (recipe) => {
     const token = getToken();
     if (!token) return;
 
     const savedRecipe = savedRecipes.find(
-      (existingRecipe) => existingRecipe.imageUrl === recipe.imageUrl
+      (existingRecipe) => existingRecipe.image === recipe.image
     );
 
     if (savedRecipe) {
@@ -279,8 +225,8 @@ function App() {
               element={
                 <ProtectedRoute isLoggedIn={isLoggedIn}>
                   <Profile
-                    savedRecipes={savedRecipes}
                     handleSaveRecipe={handleSaveRecipe}
+                    savedRecipes={savedRecipes}
                     handleRecipeSummaryOpen={handleRecipeSummaryOpen}
                   />
                 </ProtectedRoute>

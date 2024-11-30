@@ -3,17 +3,17 @@ import "../RecipeSection/RecipeSection";
 import RecipeSection from "../RecipeSection/RecipeSection";
 
 function Profile({
-  savedRecipes,
   handleRecipeSummaryOpen,
   handleFavorite,
   handleSaveRecipe,
+  savedRecipes,
 }) {
   return (
     <section className="profile__recipe-section">
       <RecipeSection
         handleFavorite={handleFavorite}
-        savedRecipes={savedRecipes}
         handleSaveRecipe={handleSaveRecipe}
+        savedRecipes={savedRecipes}
         handleRecipeSummaryOpen={handleRecipeSummaryOpen}
       />
     </section>

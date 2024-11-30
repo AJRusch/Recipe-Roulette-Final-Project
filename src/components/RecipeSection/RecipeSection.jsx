@@ -4,17 +4,19 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 import { useContext } from "react";
 
 function RecipeSection({
-  savedRecipes,
   handleSaveRecipe,
   handleRecipeSummaryOpen,
-
   handleFavorite,
+  savedRecipes,
 }) {
   const currentUser = useContext(CurrentUserContext);
   return (
     <div className="recipe-section">
       <div className="recipe__menu">
         <p className="recipe__header">Here is a list of your saved Recipes:</p>
+        <p className="recipe__header">
+          Click on the save button again if you wish to delete a recipe
+        </p>
       </div>
       <ul className="recipe-section__cards__list">
         {savedRecipes
@@ -26,7 +28,6 @@ function RecipeSection({
               handleRecipeSummaryOpen={handleRecipeSummaryOpen}
               handleFavorite={handleFavorite}
               handleSaveRecipe={handleSaveRecipe}
-              savedRecipes={savedRecipes}
             />
           ))}
       </ul>
