@@ -2,17 +2,17 @@ import { processServerResponse } from "./promise";
 import { API_KEY } from "./constants";
 
 const baseUrl =
-  process.env.NODE_ENV === "production"
+  process.env.REACT_APP_API_URL === "production"
     ? "https://api.reciperoulette.twilightparadox.com"
     : "http://localhost:3002";
 
 const searchRecipes = async (searchTerm, page) => {
   try {
-    const baseUrl = new URL("http://localhost:3002/api/recipes/search");
-    baseUrl.searchParams.append("searchTerm", searchTerm);
-    baseUrl.searchParams.append("page", page.toString());
+    const url = new URL(`${baseUrl}/api/recipes/search`);
+    url.searchParams.append("searchTerm", searchTerm);
+    url.searchParams.append("page", page.toString());
 
-    const response = await fetch(baseUrl.toString());
+    const response = await fetch(url.toString());
 
     if (!response.ok) {
       throw new Error(`HTTP error. Status: ${response.status}`);
@@ -36,7 +36,7 @@ const searchRecipes = async (searchTerm, page) => {
 const getPopularRecipes = async () => {
   try {
     const url = new URL(
-      `https://api.spoonacular.com/recipes/random?apiKey=${API_KEY}&number=0`
+      `https://api.spoonacular.com/recipes/random?apiKey=${API_KEY}&number=6`
     );
     const response = await fetch(url);
 
@@ -50,7 +50,7 @@ const getPopularRecipes = async () => {
 };
 
 const getRecipeSummary = async (recipeId) => {
-  const url = new URL(`http://localhost:3002/api/recipes/${recipeId}/summary`);
+  const url = new URL(`${baseUrl}/api/recipes/${recipeId}/summary`);
   const response = await fetch(url);
   console.log(response);
 

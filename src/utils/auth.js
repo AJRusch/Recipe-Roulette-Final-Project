@@ -1,5 +1,5 @@
 const baseUrl =
-  process.env.NODE_ENV === "production"
+  process.env.REACT_APP_API_URL === "production"
     ? "https://api.reciperoulette.twilightparadox.com"
     : "http://localhost:3002";
 import { processServerResponse } from "./promise";
