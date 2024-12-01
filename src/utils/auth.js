@@ -3,6 +3,11 @@ import { getToken } from "./token";
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
+/*const baseUrl =
+  process.env.REACT_APP_API_URL === "production"
+    ? "https://api.reciperoulette.twilightparadox.com"
+    : "http://localhost:3002"; */
+
 function registerUser({ name, email, password }) {
   return fetch(`${baseUrl}/signup`, {
     method: "POST",

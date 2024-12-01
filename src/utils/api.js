@@ -2,6 +2,7 @@ import { processServerResponse } from "./promise";
 import { API_KEY } from "./constants";
 
 const baseUrl = process.env.REACT_APP_API_URL;
+
 const searchRecipes = async (searchTerm, page) => {
   try {
     const url = new URL(`${baseUrl}/api/recipes/search`);
