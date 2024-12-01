@@ -1,12 +1,12 @@
 import { processServerResponse } from "./promise";
 import { getToken } from "./token";
 
-const baseUrl = process.env.REACT_APP_API_URL;
+//const baseUrl = import.meta.env.VITE_APP_API_URL;
 
-/*const baseUrl =
-  process.env.REACT_APP_API_URL === "production"
+const baseUrl =
+  process.env.NODE_ENV === "production"
     ? "https://api.reciperoulette.twilightparadox.com"
-    : "http://localhost:3002"; */
+    : "http://localhost:3002";
 
 function registerUser({ name, email, password }) {
   return fetch(`${baseUrl}/signup`, {
