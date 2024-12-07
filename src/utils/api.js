@@ -1,10 +1,12 @@
 import { processServerResponse } from "./promise";
 import { API_KEY } from "./constants";
 
-const baseUrl =
+/*const baseUrl =
   process.env.REACT_APP_API_URL === "production"
     ? "https://api.reciperoulette.twilightparadox.com"
-    : "http://localhost:3002";
+    : "http://localhost:3002"; */
+
+const baseUrl = import.meta.env.VITE_APP_API_URL;
 
 const searchRecipes = async (searchTerm, page) => {
   try {
