@@ -13,39 +13,39 @@ function Navbar({
   const currentUser = useContext(CurrentUserContext);
   return (
     <section className="nav">
-      <div className="navbar__menu">
+      <div className="nav__menu">
         {isLoggedIn ? (
-          <div className="navbar__menu">
+          <div className="nav__menu">
             <Link to="/profile" style={{ textDecoration: "none" }}>
-              <p className="navbar__user">Hello {currentUser.name}</p>
+              <p className="nav__user">Hello {currentUser.name}</p>
             </Link>
             <button
               onClick={handleLogout}
               type="button"
-              className="navbar__logout"
+              className="nav__logout"
             >
               Log out
             </button>
             <button
               onClick={handleEditProfileUser}
               type="button"
-              className="navbar__edit-info"
+              className="nav__edit-info"
             >
               Update your info
             </button>
           </div>
         ) : (
-          <div className="navbar__menu">
+          <div className="nav__menu">
             <button
               type="button"
-              className="navbar__login"
+              className="nav__login"
               onClick={handleLoginUser}
             >
               Log in
             </button>
             <button
               type="button"
-              className="navbar__register"
+              className="nav__register"
               onClick={handleRegisterUser}
             >
               Register
@@ -54,7 +54,7 @@ function Navbar({
         )}
 
         <Link to="/about" style={{ textDecoration: "none" }}>
-          <p className="navbar__about">About</p>
+          <p className="nav__about">About</p>
         </Link>
       </div>
     </section>

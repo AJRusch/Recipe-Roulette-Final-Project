@@ -2,7 +2,7 @@
   display: flex;
 }
 
-.navbar__menu {
+.nav__menu {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -11,7 +11,7 @@
   gap: 15px;
 }
 
-.navbar__login {
+.nav__login {
   color: black;
   opacity: 0.6;
   font-weight: 700px;
@@ -21,7 +21,7 @@
   padding: none;
 }
 
-.navbar__register {
+.nav__register {
   color: black;
   opacity: 0.6;
   margin: 0;
@@ -29,7 +29,7 @@
   background: none;
   padding: none;
 }
-.navbar__about {
+.nav__about {
   margin: 0 10px 0 0;
   color: black;
   opacity: 0.6;
@@ -37,14 +37,14 @@
   text-decoration: none;
 }
 
-.navbar__about-recipes {
+.nav__about-recipes {
   color: black;
   opacity: 0.6;
   margin: 0;
   position: relative;
 }
 
-.navbar__user {
+.nav__user {
   color: black;
   margin: 0;
   border-bottom: 2px solid;
@@ -53,7 +53,7 @@
   cursor: pointer;
 }
 
-.navbar__logout {
+.nav__logout {
   color: black;
   opacity: 0.6;
   margin: 0;
@@ -62,7 +62,7 @@
   padding: none;
 }
 
-.navbar__edit-info {
+.nav__edit-info {
   color: black;
   opacity: 0.6;
   margin: 0;
@@ -72,7 +72,7 @@
   cursor: pointer;
 }
 
-.navbar__about-recipes:before {
+.nav__about-recipes:before {
   content: attr(data-text);
   position: absolute;
   top: 50%;
@@ -85,50 +85,50 @@
   display: none;
 }
 
-.navbar__about-recipes:before:hover {
+.nav__about-recipes:before:hover {
   display: block;
   z-index: 1000;
 }
 
-.navbar__login:hover {
+.nav__login:hover {
   border-bottom: 2px solid;
   cursor: pointer;
   opacity: 1;
 }
 
-.navbar__register:hover {
+.nav__register:hover {
   border-bottom: 2px solid;
   cursor: pointer;
   opacity: 1;
 }
 
-.navbar__about-recipes:hover {
+.nav__about-recipes:hover {
   border-bottom: 2px solid;
   cursor: pointer;
   opacity: 1;
   visibility: visible;
 }
 
-.navbar__about:hover {
+.nav__about:hover {
   border-bottom: 2px solid;
   cursor: pointer;
   opacity: 1;
 }
 
-.navbar__logout:hover {
+.nav__logout:hover {
   border-bottom: 2px solid;
   cursor: pointer;
   opacity: 1;
 }
 
-.navbar__edit-info:hover {
+.nav__edit-info:hover {
   border-bottom: 2px solid;
   cursor: pointer;
   opacity: 1;
 }
 
 @media screen and (max-width: 1024px) {
-  .navbar__menu {
+  .nav__menu {
     margin-right: 10px;
     gap: 5px;
     font-size: 12px;
@@ -136,7 +136,7 @@
 }
 
 @media screen and (max-width: 750px) {
-  .navbar__menu {
+  .nav__menu {
     font-size: 10px;
   }
 }

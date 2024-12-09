@@ -1,5 +1,5 @@
-import { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import { useFormAndValidation } from "../../utils/useFormAndValidation";
 
 function LoginModal({
   isOpen,
@@ -8,22 +8,33 @@ function LoginModal({
   closeActiveModal,
   handleLogin,
 }) {
-  const [data, setData] = useState({
+  /*const [data, setData] = useState({
     email: "",
     password: "",
-  });
+  }); */
 
-  const handleChange = (e) => {
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormAndValidation();
+
+  /*const handleChange = (e) => {
     const { name, value } = e.target;
     setData((priorData) => ({
       ...priorData,
       [name]: value,
     }));
-  };
+  }; */
 
-  const handleSubmit = (e) => {
+  /*const handleSubmit = (e) => {
     e.preventDefault();
     handleLogin(data);
+  }; */
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleLogin(values, resetCurrentForm);
+  };
+
+  const resetCurrentForm = () => {
+    resetForm({ email: "", password: "" });
   };
 
   const handleRegisterClick = (e) => {
@@ -42,6 +53,7 @@ function LoginModal({
       redirectTextClick={handleRegisterClick}
       isOpen={isOpen}
       onClose={onClose}
+      formValid={isValid}
     >
       <label htmlFor="email-login" className="modal__label">
         Email*
@@ -51,11 +63,21 @@ function LoginModal({
         id="email-login"
         name="email"
         placeholder="Email"
-        value={data.email}
+        minLength="2"
+        maxLength="65"
+        value={values.email || ""}
         onChange={handleChange}
         required
         className="modal__input"
       />
+      <span
+        className={`modal__input-error ${
+          errors.email ? "modal__input-error_visible" : ""
+        }`}
+        id="email-error"
+      >
+        {errors.email}
+      </span>
       <label htmlFor="password-login" className="modal__label">
         Password*
       </label>
@@ -64,11 +86,19 @@ function LoginModal({
         id="password-login"
         name="password"
         placeholder="Password"
-        value={data.password}
+        value={values.password || ""}
         onChange={handleChange}
         required
         className="modal__input"
       />
+      <span
+        className={`modal__input-error ${
+          errors.password ? "modal__input-error_visible" : ""
+        }`}
+        id="password-error"
+      >
+        {errors.password}
+      </span>
     </ModalWithForm>
   );
 }

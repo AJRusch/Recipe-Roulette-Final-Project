@@ -1,12 +1,20 @@
-import { useState, useCallback, useEffect, useContext } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import CurrentUserContext from "../../contexts/CurrentUserContext";
+import { useFormAndValidation } from "../../utils/useFormAndValidation";
 
 function EditProfileModal({ onClose, isOpen, handleEditProfile }) {
-  const [value, setValue] = useState({});
-  const currentUser = useContext(CurrentUserContext);
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormAndValidation();
 
-  const handleChange = (e) => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleEditProfile(values, resetCurrentForm);
+  };
+
+  const resetCurrentForm = () => {
+    resetForm({ name: "" });
+  };
+
+  /*const handleChange = (e) => {
     const { name, value } = e.target;
     setValue((prevValue) => ({
       ...prevValue,
@@ -24,13 +32,13 @@ function EditProfileModal({ onClose, isOpen, handleEditProfile }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     handleEditProfile(value, resetForm);
-  };
+  }; */
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (isOpen) {
       setValue({ name: currentUser?.name });
     }
-  }, [isOpen, currentUser]);
+  }, [isOpen, currentUser]); */
 
   return (
     <ModalWithForm
@@ -40,6 +48,7 @@ function EditProfileModal({ onClose, isOpen, handleEditProfile }) {
       onClose={onClose}
       isOpen={isOpen}
       onSubmit={handleSubmit}
+      formValid={isValid}
     >
       <label htmlFor="name-edit" className="modal__label">
         Name*
@@ -49,11 +58,19 @@ function EditProfileModal({ onClose, isOpen, handleEditProfile }) {
         id="name-edit"
         name="name"
         placeholder="Name"
-        value={value.name || ""}
+        value={values.name || ""}
         onChange={handleChange}
         required
         className="modal__input"
       />
+      <span
+        className={`modal__input-error ${
+          errors.name ? "modal__input-error_visible" : ""
+        }`}
+        id="name-error"
+      >
+        {errors.name}
+      </span>
     </ModalWithForm>
   );
 }

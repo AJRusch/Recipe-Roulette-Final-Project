@@ -8,6 +8,7 @@ function PopularRecipes({
   handleSaveRecipe,
   recommended,
   setRecommended,
+  savedRecipes,
 }) {
   useEffect(() => {
     const setPopularRecipes = async () => {
@@ -29,7 +30,7 @@ function PopularRecipes({
       <h3 className="popularRecipes__subheader">
         Check out these popular Recipes...
       </h3>
-      <div className="popularRecipes-results__wrapper">
+      <div className="popularRecipes__results-wrapper">
         <ul className="popularRecipes__cards__list">
           {recommended?.map((recipe) => (
             <RecipeCard
@@ -37,6 +38,7 @@ function PopularRecipes({
               recipe={recipe}
               handleRecipeSummaryOpen={handleRecipeSummaryOpen}
               handleSaveRecipe={handleSaveRecipe}
+              savedRecipes={savedRecipes}
             />
           ))}
         </ul>

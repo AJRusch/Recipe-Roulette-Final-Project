@@ -28,6 +28,7 @@ function RecipeSection({
               handleRecipeSummaryOpen={handleRecipeSummaryOpen}
               handleFavorite={handleFavorite}
               handleSaveRecipe={handleSaveRecipe}
+              savedRecipes={savedRecipes}
             />
           ))}
       </ul>

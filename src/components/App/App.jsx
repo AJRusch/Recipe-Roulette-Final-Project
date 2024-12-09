@@ -118,6 +118,7 @@ function App() {
 
   const handleSaveRecipe = (recipe) => {
     const token = getToken();
+    console.log(recipe);
     if (!token) return;
 
     const savedRecipe = savedRecipes.find(
@@ -168,6 +169,7 @@ function App() {
   }, []);
 
   useEffect(() => {
+    if (!isLoggedIn) return;
     const token = getToken();
     try {
       getRecipeItems(token).then((data) => {
@@ -176,7 +178,7 @@ function App() {
     } catch (error) {
       console.error(error);
     }
-  }, []);
+  }, [isLoggedIn]);
 
   useEffect(() => {
     if (location.pathname === "/") {
@@ -217,6 +219,7 @@ function App() {
                   handleSaveRecipe={handleSaveRecipe}
                   recommended={recommended}
                   setRecommended={setRecommended}
+                  savedRecipes={savedRecipes}
                 />
               }
             />

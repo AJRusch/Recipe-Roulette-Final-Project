@@ -107,8 +107,18 @@
   background-color: rgba(0, 0, 0, 0.6);
 }
 
-.modal__submit:disabled {
+.modal__submit_disabled {
   background-color: rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+.modal__input-error {
+  color: red;
+  display: none;
+}
+
+.modal__input-error_visible {
+  display: block;
 }
 
 .modal__btn-redirect {

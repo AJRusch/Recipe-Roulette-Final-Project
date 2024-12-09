@@ -17,7 +17,7 @@
   font-weight: 700;
 }
 
-.popularRecipes-results__wrapper {
+.popularRecipes__results-wrapper {
   width: 100%;
   display: flex;
   max-width: 100%;

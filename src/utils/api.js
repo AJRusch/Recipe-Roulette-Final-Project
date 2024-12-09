@@ -8,14 +8,13 @@ import { API_KEY } from "./constants";
 
 const baseUrl = import.meta.env.VITE_APP_API_URL;
 
-const searchRecipes = async (searchTerm, page) => {
+/*const searchRecipes = async (searchTerm, page) => {
   try {
     const url = new URL(`${baseUrl}/api/recipes/search`);
     url.searchParams.append("searchTerm", searchTerm);
     url.searchParams.append("page", page.toString());
 
     const response = await fetch(url.toString());
-
     if (!response.ok) {
       throw new Error(`HTTP error. Status: ${response.status}`);
     }
@@ -33,9 +32,25 @@ const searchRecipes = async (searchTerm, page) => {
     console.error("Fetch error:", error);
     throw error;
   }
+}; */
+
+const searchRecipes = async (searchTerm, page) => {
+  try {
+    const url = new URL(`${baseUrl}/api/recipes/search`);
+    url.searchParams.append("searchTerm", searchTerm);
+    url.searchParams.append("page", page.toString());
+
+    const response = await fetch(url.toString());
+    const data = await processServerResponse(response);
+    console.log("Data:", data);
+    return data;
+  } catch (error) {
+    console.error("Error fetching recipes:", error);
+    throw error;
+  }
 };
 
-const getPopularRecipes = async () => {
+/*const getPopularRecipes = async () => {
   try {
     const url = new URL(
       `https://api.spoonacular.com/recipes/random?apiKey=${API_KEY}&number=6`
@@ -48,6 +63,20 @@ const getPopularRecipes = async () => {
     return response.json();
   } catch (error) {
     console.error(error.status);
+  }
+}; */
+
+const getPopularRecipes = async () => {
+  try {
+    const url = new URL(
+      `https://api.spoonacular.com/recipes/random?apiKey=${API_KEY}&number=0`
+    );
+    const response = await fetch(url);
+    const data = await processServerResponse(response);
+    return data;
+  } catch (error) {
+    console.error("Error fetching popular recipes:", error);
+    throw error;
   }
 };
 

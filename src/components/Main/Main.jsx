@@ -7,6 +7,7 @@ function Main({
   handleSaveRecipe,
   recommended,
   setRecommended,
+  savedRecipes,
 }) {
   return (
     <main className="search__section">
@@ -17,6 +18,7 @@ function Main({
           handleSaveRecipe={handleSaveRecipe}
           recommended={recommended}
           setRecommended={setRecommended}
+          savedRecipes={savedRecipes}
         />
       </section>
     </main>

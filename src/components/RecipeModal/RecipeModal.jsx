@@ -10,7 +10,6 @@ function RecipeModal({ isOpen, onClose, recipeId }) {
       try {
         if (recipeId) {
           const summary = await api.getRecipeSummary(recipeId);
-          console.log(summary);
           setRecipeSummary(summary);
         }
       } catch (error) {
@@ -22,24 +21,22 @@ function RecipeModal({ isOpen, onClose, recipeId }) {
   }, [recipeId]);
 
   return (
-    <>
-      <div className={`recipeModal ${isOpen ? "recipeModal_opened" : ""}`}>
-        <div className="recipeModal__content">
-          <button
-            type="button"
-            className="recipeModal__close"
-            onClick={onClose}
-          ></button>
-          <div className="recipeModal__content_header">
-            <h3 className="recipeModal__title">{recipeSummary?.title}</h3>
-          </div>
-          <p
-            className="recipeModal__summary"
-            dangerouslySetInnerHTML={{ __html: recipeSummary?.summary }}
-          ></p>
+    <div className={`recipeModal ${isOpen ? "recipeModal_opened" : ""}`}>
+      <div className="recipeModal__content">
+        <button
+          type="button"
+          className="recipeModal__close"
+          onClick={onClose}
+        ></button>
+        <div className="recipeModal__content_header">
+          <h3 className="recipeModal__title">{recipeSummary?.title}</h3>
         </div>
+        <p
+          className="recipeModal__summary"
+          dangerouslySetInnerHTML={{ __html: recipeSummary?.summary }}
+        ></p>
       </div>
-    </>
+    </div>
   );
 }
 
