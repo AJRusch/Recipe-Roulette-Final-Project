@@ -26,7 +26,6 @@ import { deleteRecipeCard, saveRecipe, getRecipeItems } from "../../utils/api";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
-  //const [recipes, setRecipes] = useState([]);
   const [savedRecipes, setSavedRecipes] = useState([]);
   const [recommended, setRecommended] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
@@ -59,17 +58,13 @@ function App() {
   };
 
   const handleRegistration = ({ email, password, name }) => {
-    registerUser({
+    return registerUser({
       email,
       password,
       name,
     })
-      .then((res) => {
-        setIsloggedIn(true);
-        setCurrentUser(res.data);
-        console.log(res);
-        navigate("/profile");
-        closeActiveModal();
+      .then(() => {
+        return handleLogin({ email, password });
       })
       .catch((res) => {
         console.error(res);
@@ -81,7 +76,7 @@ function App() {
       return;
     }
 
-    signInUser({ email, password })
+    return signInUser({ email, password })
       .then((res) => {
         setToken(res.token);
         return isValidToken(res.token);

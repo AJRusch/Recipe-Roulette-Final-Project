@@ -8,32 +8,6 @@ import { API_KEY } from "./constants";
 
 const baseUrl = import.meta.env.VITE_APP_API_URL;
 
-/*const searchRecipes = async (searchTerm, page) => {
-  try {
-    const url = new URL(`${baseUrl}/api/recipes/search`);
-    url.searchParams.append("searchTerm", searchTerm);
-    url.searchParams.append("page", page.toString());
-
-    const response = await fetch(url.toString());
-    if (!response.ok) {
-      throw new Error(`HTTP error. Status: ${response.status}`);
-    }
-
-    const text = await response.text();
-    try {
-      const data = JSON.parse(text);
-      console.log("Data:", data);
-      return data;
-    } catch (error) {
-      console.error("Parsing error, raw response:", text);
-      throw new Error("Invalid JSON response");
-    }
-  } catch (error) {
-    console.error("Fetch error:", error);
-    throw error;
-  }
-}; */
-
 const searchRecipes = async (searchTerm, page) => {
   try {
     const url = new URL(`${baseUrl}/api/recipes/search`);
@@ -49,22 +23,6 @@ const searchRecipes = async (searchTerm, page) => {
     throw error;
   }
 };
-
-/*const getPopularRecipes = async () => {
-  try {
-    const url = new URL(
-      `https://api.spoonacular.com/recipes/random?apiKey=${API_KEY}&number=6`
-    );
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      throw new Error(`HTTP error. Status: ${response.status}`);
-    }
-    return response.json();
-  } catch (error) {
-    console.error(error.status);
-  }
-}; */
 
 const getPopularRecipes = async () => {
   try {

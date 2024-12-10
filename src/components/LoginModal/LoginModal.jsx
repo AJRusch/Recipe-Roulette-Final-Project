@@ -8,26 +8,9 @@ function LoginModal({
   closeActiveModal,
   handleLogin,
 }) {
-  /*const [data, setData] = useState({
-    email: "",
-    password: "",
-  }); */
-
   const { values, handleChange, errors, isValid, resetForm } =
     useFormAndValidation();
 
-  /*const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData((priorData) => ({
-      ...priorData,
-      [name]: value,
-    }));
-  }; */
-
-  /*const handleSubmit = (e) => {
-    e.preventDefault();
-    handleLogin(data);
-  }; */
   const handleSubmit = (e) => {
     e.preventDefault();
     handleLogin(values, resetCurrentForm);

@@ -14,32 +14,6 @@ function EditProfileModal({ onClose, isOpen, handleEditProfile }) {
     resetForm({ name: "" });
   };
 
-  /*const handleChange = (e) => {
-    const { name, value } = e.target;
-    setValue((prevValue) => ({
-      ...prevValue,
-      [name]: value,
-    }));
-  };
-
-  const resetForm = useCallback(
-    (newValue = {}) => {
-      setValue(newValue);
-    },
-    [setValue]
-  );
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleEditProfile(value, resetForm);
-  }; */
-
-  /*useEffect(() => {
-    if (isOpen) {
-      setValue({ name: currentUser?.name });
-    }
-  }, [isOpen, currentUser]); */
-
   return (
     <ModalWithForm
       title="Change profile data"

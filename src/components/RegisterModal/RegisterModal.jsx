@@ -8,12 +8,6 @@ function RegisterModal({
   closeActiveModal,
   handleRegistration,
 }) {
-  /*const [data, setData] = useState({
-    email: "",
-    password: "",
-    name: "",
-  }); */
-
   const { values, handleChange, errors, isValid, resetForm } =
     useFormAndValidation();
 
@@ -25,19 +19,6 @@ function RegisterModal({
   const resetCurrentForm = () => {
     resetForm({ email: "", password: "", name: "" });
   };
-
-  /*const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData((priorData) => ({
-      ...priorData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleRegistration(data);
-  }; */
 
   const handleLoginClick = (e) => {
     e.preventDefault();
