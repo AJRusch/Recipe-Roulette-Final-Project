@@ -27,7 +27,7 @@ const searchRecipes = async (searchTerm, page) => {
 const getPopularRecipes = async () => {
   try {
     const url = new URL(
-      `https://api.spoonacular.com/recipes/random?apiKey=${API_KEY}&number=0`
+      `https://api.spoonacular.com/recipes/random?apiKey=${API_KEY}&number=6`
     );
     const response = await fetch(url);
     const data = await processServerResponse(response);
