@@ -17,7 +17,6 @@ function RecipeModal({ isOpen, onClose, recipeId }) {
       }
     };
     fetchRecipeSummary();
-    console.log(recipeId);
   }, [recipeId]);
 
   return (

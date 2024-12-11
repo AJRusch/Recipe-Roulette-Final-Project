@@ -2,7 +2,8 @@ import "./RecipeCard.css";
 import saveActive from "../../assets/saveActive.svg";
 import saveInactive from "../../assets/saveInactive.svg";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
-import { useContext, useState } from "react";
+import { useContext } from "react";
+import { getRecipeSummary } from "../../utils/api";
 
 function RecipeCard({
   recipe,
@@ -13,16 +14,33 @@ function RecipeCard({
   const currentUser = useContext(CurrentUserContext);
 
   const isSaved =
-    savedRecipes?.some((recipe2) => recipe2.image === recipe.image) || false;
+    savedRecipes?.some((recipe2) => {
+      return recipe2.image === recipe.image;
+    }) || false;
 
   const handleRecipeClick = () => {
-    handleRecipeSummaryOpen(recipe);
+    getRecipeSummary(recipe.id).then((data) => {
+      const recipeWithSummary = { ...recipe, summary: data.summary };
+      handleRecipeSummaryOpen(recipeWithSummary);
+    });
   };
 
   const handleSaveClick = (e) => {
     e.preventDefault(e);
-    //setIsSaved(!isSaved);
-    handleSaveRecipe({ ...recipe, isSaved: !isSaved });
+    if (isSaved) {
+      handleSaveRecipe({
+        ...recipe,
+        isSaved: !isSaved,
+      });
+    } else {
+      getRecipeSummary(recipe._id).then((data) => {
+        handleSaveRecipe({
+          ...recipe,
+          isSaved: !isSaved,
+          summary: data?.summary,
+        });
+      });
+    }
   };
 
   return (

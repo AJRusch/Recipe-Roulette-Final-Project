@@ -16,7 +16,6 @@ const searchRecipes = async (searchTerm, page) => {
 
     const response = await fetch(url.toString());
     const data = await processServerResponse(response);
-    console.log("Data:", data);
     return data;
   } catch (error) {
     console.error("Error fetching recipes:", error);
@@ -39,15 +38,16 @@ const getPopularRecipes = async () => {
 };
 
 const getRecipeSummary = async (recipeId) => {
-  const url = new URL(`${baseUrl}/api/recipes/${recipeId}/summary`);
-  const response = await fetch(url);
-  console.log(response);
+  try {
+    const url = new URL(`${baseUrl}/api/recipes/${recipeId}/summary`);
+    const response = await fetch(url);
 
-  if (!response.ok) {
-    throw new Error(`HTTP error. Status: ${response.status}`);
+    const data = await processServerResponse(response);
+    return data;
+  } catch (error) {
+    console.error("Error fetching popular recipes:", error);
+    throw error;
   }
-  console.log(response);
-  return response.json();
 };
 
 function getRecipeItems(token) {

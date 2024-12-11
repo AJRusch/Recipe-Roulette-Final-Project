@@ -1,9 +1,10 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SearchBar.css";
 import { FaSearch } from "react-icons/fa";
 import * as api from "../../utils/api";
 import Preloader from "../Preloader/Preloader";
+import { getRecipeSummary } from "../../utils/api";
 
 function SearchBar() {
   const [searchInput, setSearchInput] = useState("");
@@ -16,7 +17,6 @@ function SearchBar() {
     setIsLoading(true);
     try {
       const { results } = await api.searchRecipes(searchInput, 1);
-      console.log(results);
       navigate("/searched", { state: { searchResults: results } });
       pageNumber.current = 1;
     } catch (error) {

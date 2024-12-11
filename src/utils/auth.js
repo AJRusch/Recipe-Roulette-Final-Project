@@ -29,7 +29,6 @@ function signInUser({ email, password }) {
 }
 
 function updateUser({ name }) {
-  debugger;
   const token = getToken();
   return fetch(`${baseUrl}/users/me`, {
     method: "PATCH",

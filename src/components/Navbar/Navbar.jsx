@@ -12,7 +12,7 @@ function Navbar({
 }) {
   const currentUser = useContext(CurrentUserContext);
   return (
-    <section className="nav">
+    <nav className="nav">
       <div className="nav__menu">
         {isLoggedIn ? (
           <div className="nav__menu">
@@ -57,7 +57,7 @@ function Navbar({
           <p className="nav__about">About</p>
         </Link>
       </div>
-    </section>
+    </nav>
   );
 }
 

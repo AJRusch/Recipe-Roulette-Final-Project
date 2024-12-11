@@ -2,14 +2,13 @@ import "./SearchedRecipes.css";
 import { useLocation } from "react-router-dom";
 import RecipeCard from "../RecipeCard/RecipeCard";
 
-function SearchedRecipes({ handleRecipeSummaryOpen, handleSaveRecipe }) {
+function SearchedRecipes({
+  handleRecipeSummaryOpen,
+  handleSaveRecipe,
+  savedRecipes,
+}) {
   const location = useLocation();
   const { searchResults } = location.state || { searchResults: [] };
-
-  /*useEffect(() => {
-    if (!searchResults || !Array.isArray(searchResults)) {
-    }
-  }, []); */
 
   return (
     <section className="searchedRecipes">
@@ -25,6 +24,7 @@ function SearchedRecipes({ handleRecipeSummaryOpen, handleSaveRecipe }) {
                 recipe={recipe}
                 handleRecipeSummaryOpen={handleRecipeSummaryOpen}
                 handleSaveRecipe={handleSaveRecipe}
+                savedRecipes={savedRecipes}
               />
             ))}
         </ul>

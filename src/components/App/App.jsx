@@ -50,7 +50,6 @@ function App() {
   const handleRecipeSummaryOpen = (recipe) => {
     setActiveModal("summary");
     setSelectedRecipe(recipe);
-    console.log(recipe);
   };
 
   const closeActiveModal = () => {
@@ -95,7 +94,6 @@ function App() {
   const handleEditProfile = ({ name }) => {
     updateUser({ name })
       .then((res) => {
-        console.log(res);
         setCurrentUser(res);
         closeActiveModal();
       })
@@ -113,7 +111,6 @@ function App() {
 
   const handleSaveRecipe = (recipe) => {
     const token = getToken();
-    console.log(recipe);
     if (!token) return;
 
     const savedRecipe = savedRecipes.find(
@@ -141,7 +138,6 @@ function App() {
       )
         .then((newRecipe) => {
           setSavedRecipes((prevRecipes) => {
-            console.log("Updating with:", [...prevRecipes, newRecipe.data]);
             return [...prevRecipes, newRecipe.data];
           });
         })
@@ -236,6 +232,7 @@ function App() {
                 <SearchedRecipes
                   handleRecipeSummaryOpen={handleRecipeSummaryOpen}
                   handleSaveRecipe={handleSaveRecipe}
+                  savedRecipes={savedRecipes}
                 />
               }
             />
